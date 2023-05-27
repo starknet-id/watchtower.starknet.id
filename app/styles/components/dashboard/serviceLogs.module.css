@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+}
+
+.line p {
+}
+
+.line .date {
+  width: fit-content;
+  color: rgb(192, 192, 192);
+  margin-right: 5px;
+}
+
+.line .time {
+  width: fit-content;
+  margin-right: 15px;
+  color: rgb(192, 192, 192);
+}

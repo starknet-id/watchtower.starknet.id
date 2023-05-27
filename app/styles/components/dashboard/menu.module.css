@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.container svg {
+  width: 50px;
+  margin: auto calc(2rem - 25px);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--menu-background);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 50%;
+  border: 1px solid var(--menu-border);
+  padding: 5px;
+}
+
+.container svg:hover {
+  transform: scale(1.1);
+}
