@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 import Icon from "../icons/icon";
 import Plus from "../icons/plus";
 import CreateUserMenu from "./user/createUserMenu";
-import UserContextmenu from "./user/UserContextmenu";
+import UserContextmenu from "./user/userContextMenu";
 
 const Users = ({
   users,
