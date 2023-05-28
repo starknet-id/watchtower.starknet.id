@@ -25,8 +25,12 @@
 .button {
   color: rgb(202, 202, 202);
   padding: 2px 10px;
-  border: 1px solid var(--danger);
+  border: 1px solid var(--foreground-light);
   border-radius: 0.5rem;
+}
+
+.button.error {
+  border: 1px solid var(--danger);
 }
 
 .cross {

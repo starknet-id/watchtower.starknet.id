@@ -4,16 +4,18 @@ import { useCookies } from "react-cookie";
 import Icon from "../icons/icon";
 import Plus from "../icons/plus";
 import CreateUserMenu from "./user/createUserMenu";
-import DeleteUserMenu from "./user/deleteUserMenu";
+import UserContextmenu from "./user/UserContextmenu";
 
 const Users = ({
   users,
   setUsers,
   setMenu,
+  permissions,
 }: {
   users: Array<User>;
   setUsers: (services: Array<User>) => void;
   setMenu: SetMenu;
+  permissions: Array<Permission>;
 }) => {
   const cookies = useCookies();
 
@@ -55,7 +57,7 @@ const Users = ({
                       className="button glass danger"
                       onClick={() =>
                         setMenu(
-                          <DeleteUserMenu
+                          <UserContextmenu
                             setMenu={setMenu}
                             setUsers={setUsers}
                             users={users}

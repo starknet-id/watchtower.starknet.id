@@ -49,11 +49,17 @@ const Dashboard = () => {
             setMenu={setMenu}
             services={services}
             setServices={setServices}
+            permissions={permissions}
           />
         ) : null}
         {page === "service" ? <Service services={services} /> : null}
         {page === "users" ? (
-          <Users users={users} setMenu={setMenu} setUsers={setUsers} />
+          <Users
+            users={users}
+            setMenu={setMenu}
+            setUsers={setUsers}
+            permissions={permissions}
+          />
         ) : null}
       </div>
       <DashboardMenu permissions={permissions} />
