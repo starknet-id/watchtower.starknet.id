@@ -67,7 +67,6 @@ const Home = ({
                   services={services}
                   permissions={permissions}
                 />,
-
                 400
               )
             }
