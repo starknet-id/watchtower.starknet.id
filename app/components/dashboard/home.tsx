@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import Popup from "../UI/popup";
 import request from "@/app/utils/request";
 import { useCookies } from "react-cookie";
+import Icon from "../icons/icon";
+import Plus from "../icons/plus";
 
 const Home = ({
   services,
@@ -23,7 +25,15 @@ const Home = ({
 
   return (
     <>
-      <h1 className="text-outline">Logs</h1>
+      <div className="flex items-center">
+        <h1 className="text-outline mr-3">Logs</h1>
+        <button className="button glass flex items-center">
+          <Icon>
+            <Plus />
+          </Icon>
+          <p>Create new service</p>
+        </button>
+      </div>
       <div className={styles.servicesContainer}>
         {services.map((service, index) => (
           <div

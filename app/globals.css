@@ -5,7 +5,9 @@
 :root {
   --foreground: white;
   --foreground-light: rgb(39, 194, 140);
+  --foreground-glass-light: rgba(39, 194, 140, 0.202);
   --foreground-light-2: rgb(39, 93, 194);
+  --foreground-glass-light-2: rgba(39, 93, 194, 0.202);
   --background: rgb(17, 17, 18);
   --menu-background: rgba(0, 0, 0, 0.211);
   --menu-border: rgba(255, 255, 255, 0.125);
