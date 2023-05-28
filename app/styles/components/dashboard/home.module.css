@@ -7,17 +7,72 @@
   background-color: var(--menu-background);
   border-radius: var(--menu-border-radius);
   padding: 5px 10px;
-  border-radius: 50px;
   border: 1px solid var(--menu-border);
   cursor: pointer;
   margin: 10px;
-  min-width: 300px;
-  width: auto;
-  flex-shrink: 0;
-  flex-grow: 1;
   text-align: center;
   min-height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex-shrink: 0;
+  flex-grow: 1;
+  width: 300px;
+  box-shadow: 0 0 80px rgba(51, 45, 138, 0.108) inset,
+    0 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.service::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  transform: rotate(45deg);
+  height: 200%;
+  left: -40%;
+  background-color: rgba(255, 255, 255, 0.73);
+  transition: all 0.3s ease-in-out;
+  filter: blur(50px);
+}
+
+.service:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  filter: blur(80px);
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.service:hover {
+  transform: rotate3d(0.8, 0.8, 0.3, 4deg) scale(1.03);
+}
+
+.service:hover::after {
+  left: 120%;
+  width: 1px;
+}
+
+.service:hover:before {
+  opacity: 1;
+}
+
+.contextMenuActions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.contextMenuActions button {
+  margin: 5px 0;
+  width: 100%;
 }

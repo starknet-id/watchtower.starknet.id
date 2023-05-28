@@ -1,5 +1,5 @@
 .container {
-  background-color: rgba(69, 3, 3, 0.201);
+  background-color: var(--menu-background);
   border-radius: var(--menu-border-radius);
   padding: var(--menu-padding);
   backdrop-filter: blur(16px) saturate(180%);
@@ -8,6 +8,10 @@
   border: 1px solid var(--menu-border);
   width: 450px;
   max-width: 100%;
+}
+
+.container.error {
+  background-color: rgba(69, 3, 3, 0.201);
 }
 
 .title.error {
@@ -23,4 +27,11 @@
   padding: 2px 10px;
   border: 1px solid var(--danger);
   border-radius: 0.5rem;
+}
+
+.cross {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }

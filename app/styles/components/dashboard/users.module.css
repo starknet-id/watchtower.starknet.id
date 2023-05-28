@@ -1,0 +1,32 @@
+.servicesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.service {
+  background-color: var(--menu-background);
+  padding: 5px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.204);
+  cursor: pointer;
+  margin: 10px 0;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: calc(100% - 10px);
+  transition: all 0.2s ease-in-out;
+}
+
+.contextMenuActions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.contextMenuActions button {
+  margin: 5px 0;
+  width: 100%;
+}

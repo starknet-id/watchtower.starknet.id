@@ -27,7 +27,7 @@ const Service = ({ services }: { services: Array<Service> }) => {
 
   return (
     <>
-      <h1>Logs - {service?.app_name}</h1>
+      <h1 className="text-outline">Logs - {service?.app_name}</h1>
       <div className={styles.container}>
         {logs.map((log, index) => (
           <div className={styles.line} key={`log_${index}`}>
@@ -40,6 +40,7 @@ const Service = ({ services }: { services: Array<Service> }) => {
             <p className={styles.message}>{log.message}</p>
           </div>
         ))}
+        {logs.length === 0 && <p className={styles.noLogs}>No logs found</p>}
       </div>
     </>
   );

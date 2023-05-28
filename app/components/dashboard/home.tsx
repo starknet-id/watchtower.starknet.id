@@ -1,18 +1,92 @@
 import styles from "@/app/styles/components/dashboard/home.module.css";
+import openContextMenu from "@/app/utils/openContextMenu";
 import { useRouter } from "next/navigation";
+import Popup from "../UI/popup";
+import request from "@/app/utils/request";
+import { useCookies } from "react-cookie";
 
-const Home = ({ services }: { services: Array<any> }) => {
+const Home = ({
+  services,
+  setServices,
+  setMenu,
+}: {
+  services: Array<any>;
+  setServices: (services: Array<Service>) => void;
+  setMenu: SetMenu;
+}) => {
   const router = useRouter();
+  const cookies = useCookies();
+
+  const getLink = (service: any) => {
+    return `/dashboard?page=service&service_id=${service._id}`;
+  };
+
   return (
     <>
-      <h1>Logs</h1>
+      <h1 className="text-outline">Logs</h1>
       <div className={styles.servicesContainer}>
         {services.map((service, index) => (
           <div
             className={styles.service}
             key={`service_${index}`}
-            onClick={() =>
-              router.push(`/dashboard?page=service&service_id=${service._id}`)
+            onClick={() => router.push(getLink(service))}
+            onContextMenu={(e) =>
+              openContextMenu(
+                e,
+                setMenu,
+                <>
+                  <h2 className="text-outline">{service.app_name}</h2>
+                  <div className={styles.contextMenuActions}>
+                    <button
+                      className="button glass"
+                      onClick={() =>
+                        window.open(
+                          `/dashboard?page=service&service_id=${service._id}`
+                        )
+                      }
+                    >
+                      Open in new tab
+                    </button>
+                    <button
+                      className="button glass danger"
+                      onClick={() =>
+                        setMenu(
+                          <Popup
+                            title="Delete service"
+                            then={() =>
+                              request(
+                                `/delete_service`,
+                                {
+                                  app_id: service._id,
+                                  token: cookies[0].token,
+                                },
+                                { method: "DELETE" }
+                              ).then(
+                                (res) =>
+                                  res.status === "success" &&
+                                  setServices(
+                                    services.filter(
+                                      (s) => s._id !== service._id
+                                    )
+                                  )
+                              )
+                            }
+                            buttonName={"Continue"}
+                            setMenu={setMenu}
+                            type="error"
+                            cross={true}
+                          >
+                            <p>Are you sure you want to delete this service?</p>
+                          </Popup>
+                        )
+                      }
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </>,
+                400
+              )
             }
           >
             <p>{service.app_name}</p>

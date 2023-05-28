@@ -56,7 +56,7 @@ const Home = () => {
       <Background />
       <div className="flex flex-col items-center justify-center min-h-screen py-2">
         <form className={styles.form} onSubmit={login}>
-          <h2>Sign in</h2>
+          <h2 className="text-light">Sign in</h2>
           <div className={styles.inputContainer}>
             <label htmlFor="username">Username</label>
             <input
@@ -76,7 +76,7 @@ const Home = () => {
             />
           </div>
           <ButtonContainer loading={loading}>
-            <button className="button glass flex" type="submit">
+            <button className="button flex" type="submit">
               <svg
                 fill="none"
                 viewBox="0 0 24 24"

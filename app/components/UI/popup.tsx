@@ -1,21 +1,36 @@
 import styles from "@/app/styles/components/UI/popup.module.css";
+import Icon from "../icons/icon";
+import Cross from "../icons/cross";
 
 const Popup = ({
   children,
   title,
   type = "default",
   setMenu,
+  buttonName = "Close",
+  then = () => {},
+  cross = false,
 }: {
   children: React.ReactNode;
   title: string;
   type?: "default" | "error" | "success";
   setMenu: (menu: null | React.ReactNode) => void;
+  buttonName?: string;
+  then?: () => void;
+  cross?: boolean;
 }) => {
   return (
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center">
         <div className="absolute inset-0 bg-black opacity-50" />
-        <div className={styles.container}>
+        <div className={[styles.container, styles[type]].join(" ")}>
+          {cross && (
+            <div className={styles.cross} onClick={() => setMenu(null)}>
+              <Icon>
+                <Cross />
+              </Icon>
+            </div>
+          )}
           <h1
             className={[styles.title, styles[type], "flex items-center"].join(
               " "
@@ -41,9 +56,12 @@ const Popup = ({
           <div className={styles.content}>{children}</div>
           <button
             className={[styles.button, styles[type]].join(" ")}
-            onClick={() => setMenu(null)}
+            onClick={() => {
+              setMenu(null);
+              then();
+            }}
           >
-            Close
+            {buttonName}
           </button>
         </div>
       </div>

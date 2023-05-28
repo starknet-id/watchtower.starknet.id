@@ -9,12 +9,16 @@ import { useEffect, useState } from "react";
 import request from "../utils/request";
 import { useCookies } from "react-cookie";
 import Service from "../components/dashboard/service";
+import Users from "../components/dashboard/users";
 
 const Dashboard = () => {
   const cookies = useCookies();
   const params = useSearchParams();
   const page = params.get("page") || "home";
   const [services, setServices] = useState<Array<any>>([]);
+  const [users, setUsers] = useState<Array<User>>([]);
+  const [permissions, setPermissions] = useState<Array<Permission>>([]);
+  const [menu, setMenu] = useState<Menu>(null);
 
   const token = cookies[0].token;
 
@@ -24,16 +28,36 @@ const Dashboard = () => {
         setServices(res.services);
       }
     });
+    request("/get_users", { token: token }).then((res) => {
+      if (res.status === "success") {
+        setUsers(res.users);
+      }
+    });
+    request("/get_permissions", { token: token }).then((res) => {
+      if (res.status === "success") {
+        setPermissions(res.permissions);
+      }
+    });
   }, [token]);
 
   return (
     <>
       <Background />
       <div className={styles.container}>
-        {page === "home" ? <Home services={services} /> : null}
+        {page === "home" ? (
+          <Home
+            setMenu={setMenu}
+            services={services}
+            setServices={setServices}
+          />
+        ) : null}
         {page === "service" ? <Service services={services} /> : null}
+        {page === "users" ? (
+          <Users users={users} setMenu={setMenu} setUsers={setUsers} />
+        ) : null}
       </div>
-      <DashboardMenu />
+      <DashboardMenu permissions={permissions} />
+      {menu}
     </>
   );
 };
