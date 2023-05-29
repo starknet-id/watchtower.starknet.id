@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.typeContainer {
+  background-color: var(--menu-background);
+  padding: 5px 15px;
+  border: 1px solid rgba(0, 0, 0, 0.204);
+  cursor: pointer;
+  margin: 10px 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  width: calc(100% - 10px);
+  transition: all 0.2s ease-in-out;
+}
+
+.typeContainer.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.typeContainer svg {
+  width: 25px;
+  margin-right: 5px;
+}

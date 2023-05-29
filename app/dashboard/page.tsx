@@ -11,6 +11,8 @@ import { useCookies } from "react-cookie";
 import Service from "../components/dashboard/service";
 import Users from "../components/dashboard/users";
 import Settings from "../components/dashboard/settings";
+import Types from "../components/dashboard/types";
+import User from "../components/dashboard/user";
 
 const Dashboard = () => {
   const cookies = useCookies();
@@ -19,9 +21,12 @@ const Dashboard = () => {
   const [services, setServices] = useState<Array<any>>([]);
   const [users, setUsers] = useState<Array<User>>([]);
   const [permissions, setPermissions] = useState<Array<Permission>>([]);
+  const [types, setTypes] = useState<Array<Type>>([]);
   const [menu, setMenu] = useState<Menu>(null);
 
   const token = cookies[0].token;
+
+  console.log(token);
 
   useEffect(() => {
     request("/get_services", { token: token }).then((res) => {
@@ -37,6 +42,11 @@ const Dashboard = () => {
     request("/get_permissions", { token: token }).then((res) => {
       if (res.status === "success") {
         setPermissions(res.permissions);
+      }
+    });
+    request("/get_types", { token: token }).then((res) => {
+      if (res.status === "success") {
+        setTypes(res.types);
       }
     });
   }, [token]);
@@ -55,6 +65,9 @@ const Dashboard = () => {
         ) : null}
         {page === "service" ? <Service services={services} /> : null}
         {page === "settings" ? <Settings setMenu={setMenu} /> : null}
+        {page === "types" ? (
+          <Types setMenu={setMenu} types={types} setTypes={setTypes} />
+        ) : null}
         {page === "users" ? (
           <Users
             users={users}
@@ -63,6 +76,7 @@ const Dashboard = () => {
             permissions={permissions}
           />
         ) : null}
+        {page === "user" ? <User users={users} setMenu={setMenu} /> : null}
       </div>
       <DashboardMenu permissions={permissions} />
       {menu}

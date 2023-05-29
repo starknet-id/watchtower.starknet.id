@@ -2,9 +2,14 @@ import styles from "@/app/styles/components/dashboard/users.module.css";
 import openContextMenu from "@/app/utils/openContextMenu";
 import { useCookies } from "react-cookie";
 import Icon from "../icons/icon";
-import Plus from "../icons/plus";
+import Plus from "../icons/outline/plus";
 import CreateUserMenu from "./user/createUserMenu";
 import UserContextmenu from "./user/userContextMenu";
+import SolidIcon from "../icons/solidIcon";
+import User from "../icons/solid/user";
+import WarningShield from "../icons/solid/warningShield";
+import { useRouter } from "next/navigation";
+import UserIcon from "./user/userIcon";
 
 const Users = ({
   users,
@@ -18,6 +23,7 @@ const Users = ({
   permissions: Array<Permission>;
 }) => {
   const cookies = useCookies();
+  const router = useRouter();
 
   return (
     <>
@@ -73,9 +79,14 @@ const Users = ({
                 400
               )
             }
-            onClick={() => {}}
+            onClick={() =>
+              router.push(`/dashboard?page=user&user_id=${user._id}`)
+            }
           >
-            <strong>{user.username}</strong>
+            <SolidIcon width={25}>
+              <UserIcon user={user} />
+            </SolidIcon>
+            <p>{user.username}</p>
             {user.permissions.map((permission, index) => (
               <p
                 className={[

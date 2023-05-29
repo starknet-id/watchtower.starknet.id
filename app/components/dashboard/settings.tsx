@@ -1,6 +1,6 @@
 import { useCookies } from "react-cookie";
 import Icon from "../icons/icon";
-import Key from "../icons/key";
+import Key from "../icons/outline/key";
 import ResetPasswordMenu from "./settings/resetPasswordMenu";
 
 const Settings = ({ setMenu }: { setMenu: SetMenu }) => {

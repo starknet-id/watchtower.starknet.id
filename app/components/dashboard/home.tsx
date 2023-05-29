@@ -3,7 +3,7 @@ import openContextMenu from "@/app/utils/openContextMenu";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import Icon from "../icons/icon";
-import Plus from "../icons/plus";
+import Plus from "../icons/outline/plus";
 import CreateServiceMenu from "./home/createServiceMenu";
 import ServiceContextMenu from "./home/serviceContextMenu";
 

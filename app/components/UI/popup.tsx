@@ -1,6 +1,6 @@
 import styles from "@/app/styles/components/UI/popup.module.css";
 import Icon from "../icons/icon";
-import Cross from "../icons/cross";
+import Cross from "../icons/outline/cross";
 
 const Popup = ({
   children,
