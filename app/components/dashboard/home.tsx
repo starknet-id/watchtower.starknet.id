@@ -1,9 +1,8 @@
 import styles from "@/app/styles/components/dashboard/home.module.css";
 import openContextMenu from "@/app/utils/openContextMenu";
 import { useRouter } from "next/navigation";
-import { useCookies } from "react-cookie";
 import Icon from "../icons/icon";
-import Plus from "../icons/outline/plus";
+import Plus from "../icons/paths/plus";
 import CreateServiceMenu from "./home/createServiceMenu";
 import ServiceContextMenu from "./home/serviceContextMenu";
 
@@ -19,7 +18,6 @@ const Home = ({
   permissions: Array<Permission>;
 }) => {
   const router = useRouter();
-  const cookies = useCookies();
 
   const getLink = (service: any) => {
     return `/dashboard?page=service&service_id=${service._id}`;

@@ -13,6 +13,7 @@ import Users from "../components/dashboard/users";
 import Settings from "../components/dashboard/settings";
 import Types from "../components/dashboard/types";
 import User from "../components/dashboard/user";
+import Type from "../components/dashboard/type";
 
 const Dashboard = () => {
   const cookies = useCookies();
@@ -66,6 +67,7 @@ const Dashboard = () => {
         {page === "types" ? (
           <Types setMenu={setMenu} types={types} setTypes={setTypes} />
         ) : null}
+        {page === "type" ? <Type types={types} setTypes={setTypes} /> : null}
         {page === "users" ? (
           <Users
             users={users}

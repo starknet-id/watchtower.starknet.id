@@ -2,12 +2,10 @@ import styles from "@/app/styles/components/dashboard/users.module.css";
 import openContextMenu from "@/app/utils/openContextMenu";
 import { useCookies } from "react-cookie";
 import Icon from "../icons/icon";
-import Plus from "../icons/outline/plus";
+import Plus from "../icons/paths/plus";
 import CreateUserMenu from "./user/createUserMenu";
 import UserContextmenu from "./user/userContextMenu";
 import SolidIcon from "../icons/solidIcon";
-import User from "../icons/solid/user";
-import WarningShield from "../icons/solid/warningShield";
 import { useRouter } from "next/navigation";
 import UserIcon from "./user/userIcon";
 

@@ -1,13 +1,13 @@
-import { useCookies } from "react-cookie";
 import Icon from "../icons/icon";
-import Plus from "../icons/outline/plus";
+import Plus from "../icons/paths/plus";
 import CreateTypeMenu from "./types/createTypeMenu";
 import styles from "@/app/styles/components/dashboard/types.module.css";
 import IconRouter from "../icons/iconRouter";
 import SolidIcon from "../icons/solidIcon";
-import TextDocument from "../icons/solid/textDocument";
+import TextDocument from "../icons/paths/textDocument";
 import openContextMenu from "@/app/utils/openContextMenu";
 import TypeContextMenu from "./types/typeContextMenu";
+import { useRouter } from "next/navigation";
 
 const Types = ({
   setMenu,
@@ -18,7 +18,7 @@ const Types = ({
   types: Type[];
   setTypes: (types: Array<Type>) => void;
 }) => {
-  const cookies = useCookies();
+  const router = useRouter();
 
   return (
     <>
@@ -66,10 +66,21 @@ const Types = ({
                 400
               )
             }
+            onClick={() =>
+              router.push(`/dashboard?page=type&type_id=${type._id}`)
+            }
           >
-            <SolidIcon>
-              <IconRouter name={type.icon} />
-            </SolidIcon>
+            <div
+              style={{
+                color: type?.color,
+              }}
+            >
+              {" "}
+              <SolidIcon>
+                <IconRouter name={type.icon} />
+              </SolidIcon>
+            </div>
+
             <p>{type.name}</p>
           </div>
         ))}

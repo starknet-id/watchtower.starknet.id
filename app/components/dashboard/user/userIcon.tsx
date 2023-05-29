@@ -1,5 +1,5 @@
-import User from "../../icons/solid/user";
-import WarningShield from "../../icons/solid/warningShield";
+import User from "../../icons/paths/user";
+import WarningShield from "../../icons/paths/warningShield";
 import SolidIcon from "../../icons/solidIcon";
 
 const UserIcon = ({ user }: { user: User }) => {

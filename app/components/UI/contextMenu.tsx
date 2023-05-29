@@ -1,4 +1,4 @@
-import Cross from "../icons/outline/cross";
+import Cross from "../icons/paths/cross";
 import Icon from "../icons/icon";
 import DraggableMenu from "./draggableMenu";
 import styles from "@/app/styles/components/UI/contextMenu.module.css";
