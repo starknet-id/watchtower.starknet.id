@@ -3,6 +3,7 @@ import request from "@/app/utils/request";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { useRouter } from "next/navigation";
 
 const Service = ({
   services,
@@ -13,12 +14,14 @@ const Service = ({
 }) => {
   const params = useSearchParams();
   const cookies = useCookies();
+  const router = useRouter();
   const [logs, setLogs] = useState<Array<Log>>([]);
-  const serviceId = params.get("service_id");
   const [loaded, setLoaded] = useState(false);
+  const serviceId = params.get("service_id");
   const service = services.find((service) => service._id === serviceId);
 
-  const logId = window.location.hash.split("#log_")[1];
+  const logId =
+    typeof window !== "undefined" ? window.location.hash.split("#log_")[1] : "";
 
   useEffect(() => {
     if (!serviceId) return;
@@ -55,6 +58,11 @@ const Service = ({
             )}
             key={`log_${index}`}
             id={`log_${log._id}`}
+            onClick={() => {
+              router.push(
+                `${window.location.href.split("#")[0]}#log_${log._id}`
+              );
+            }}
           >
             <p className={styles.date}>
               {new Date(log.timestamp * 1000).toLocaleDateString()}
