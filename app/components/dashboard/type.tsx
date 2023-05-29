@@ -10,6 +10,7 @@ import { useCookies } from "react-cookie";
 import Switch from "../UI/switch";
 import contactList from "@/app/utils/contactList";
 import SelectBox from "../UI/selectBox";
+import TextInput from "../UI/textInput";
 
 const Type = ({
   types,
@@ -178,6 +179,25 @@ const Type = ({
           ]}
         />
       </div>
+      <TextInput
+        placeholder="Name"
+        value={type?.name || ""}
+        onChange={(e) => {
+          if (type) {
+            setTypes(
+              types.map((t) => {
+                if (t._id === type._id) {
+                  return {
+                    ...t,
+                    name: e.target.value,
+                  };
+                }
+                return t;
+              })
+            );
+          }
+        }}
+      />
     </>
   );
 };

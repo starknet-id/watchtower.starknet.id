@@ -1,5 +1,6 @@
 import styles from "@/app/styles/components/UI/selectBox.module.css";
 import { useState } from "react";
+import TextInput from "./textInput";
 
 const SelectBox = ({
   options,
@@ -34,12 +35,10 @@ const SelectBox = ({
       </div>
       {open ? (
         <div className={styles.options}>
-          <input
-            type="text"
-            className={styles.search}
-            placeholder="Search"
+          <TextInput
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search"
           />
           {filteredOptions.map((option) => (
             <div
