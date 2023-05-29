@@ -53,7 +53,7 @@ const Type = ({
             </SolidIcon>
           ) : null}
         </div>
-        <h1 className="text-outline">Groups - {type?.name}</h1>
+        <h1 className="text-outline">Type - {type?.name}</h1>
       </div>
       <h2 className="my-3">Style</h2>
       <div className={styles.container}>

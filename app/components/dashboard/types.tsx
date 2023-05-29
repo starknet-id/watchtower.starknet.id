@@ -23,7 +23,7 @@ const Types = ({
   return (
     <>
       <div className="flex items-center">
-        <h1 className="text-outline mr-3">Groups</h1>
+        <h1 className="text-outline mr-3">Types</h1>
         <button
           className="button glass flex items-center"
           onClick={() =>
@@ -39,7 +39,7 @@ const Types = ({
           <Icon>
             <Plus />
           </Icon>
-          <p>Create a new group</p>
+          <p>Create a new type</p>
         </button>
       </div>
       <section className={styles.container}>
