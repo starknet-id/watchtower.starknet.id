@@ -16,6 +16,7 @@ const User = ({
   const [permissions, setPermissions] = useState<Record<Permission, boolean>>({
     administrator: false,
   });
+  const [loaded, setLoaded] = useState(false);
   const cookies = useCookies();
   const params = useSearchParams();
   const userId = params.get("user_id");
@@ -33,11 +34,12 @@ const User = ({
           [key]: userPermissions.includes(key),
         }));
       }
+      setLoaded(true);
     }
   }, [user]);
 
   useEffect(() => {
-    if (user && permissions) {
+    if (user && permissions && loaded) {
       request(`/set_user_permissions`, {
         token: cookies[0].token,
         target_user_id: user._id,
@@ -46,7 +48,7 @@ const User = ({
         ),
       });
     }
-  }, [user, permissions]);
+  }, [user, permissions, loaded]);
 
   return (
     <>
