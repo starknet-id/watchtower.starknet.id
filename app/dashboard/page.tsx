@@ -10,6 +10,7 @@ import request from "../utils/request";
 import { useCookies } from "react-cookie";
 import Service from "../components/dashboard/service";
 import Users from "../components/dashboard/users";
+import Settings from "../components/dashboard/settings";
 
 const Dashboard = () => {
   const cookies = useCookies();
@@ -21,8 +22,6 @@ const Dashboard = () => {
   const [menu, setMenu] = useState<Menu>(null);
 
   const token = cookies[0].token;
-
-  console.log(token);
 
   useEffect(() => {
     request("/get_services", { token: token }).then((res) => {
@@ -55,6 +54,7 @@ const Dashboard = () => {
           />
         ) : null}
         {page === "service" ? <Service services={services} /> : null}
+        {page === "settings" ? <Settings setMenu={setMenu} /> : null}
         {page === "users" ? (
           <Users
             users={users}
