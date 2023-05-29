@@ -4,7 +4,13 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
-const Service = ({ services }: { services: Array<Service> }) => {
+const Service = ({
+  services,
+  types,
+}: {
+  services: Array<Service>;
+  types: Array<Type>;
+}) => {
   const params = useSearchParams();
   const cookies = useCookies();
   const [logs, setLogs] = useState<Array<Log>>([]);
@@ -24,6 +30,8 @@ const Service = ({ services }: { services: Array<Service> }) => {
     const interval = setInterval(load, 1000);
     return () => clearInterval(interval);
   }, [serviceId]);
+  const getType = (typeName: string) =>
+    types.find((type) => type.name === typeName);
 
   return (
     <>
@@ -37,7 +45,14 @@ const Service = ({ services }: { services: Array<Service> }) => {
             <p className={styles.time}>
               {new Date(log.timestamp * 1000).toLocaleTimeString()}
             </p>
-            <span className="whitespace-pre-line">{log.message}</span>
+            <span
+              style={{
+                color: getType(log.type_)?.color,
+              }}
+              className="whitespace-pre-line"
+            >
+              {log.message}
+            </span>
           </div>
         ))}
         {logs.length === 0 && <p className={styles.noLogs}>No logs found</p>}

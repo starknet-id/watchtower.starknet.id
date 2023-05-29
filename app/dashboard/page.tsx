@@ -62,7 +62,9 @@ const Dashboard = () => {
             permissions={permissions}
           />
         ) : null}
-        {page === "service" ? <Service services={services} /> : null}
+        {page === "service" ? (
+          <Service services={services} types={types} />
+        ) : null}
         {page === "settings" ? <Settings setMenu={setMenu} /> : null}
         {page === "types" ? (
           <Types setMenu={setMenu} types={types} setTypes={setTypes} />
