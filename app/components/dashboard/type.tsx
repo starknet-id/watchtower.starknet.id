@@ -128,9 +128,12 @@ const Type = ({
                 setTypes(
                   types.map((t) => {
                     if (t._id === type._id) {
+                      console.log(value);
                       return {
                         ...t,
-                        notifications: [...t.notifications, contact],
+                        notifications: value
+                          ? [...t.notifications, contact]
+                          : t.notifications.filter((n) => n !== contact),
                       };
                     }
                     return t;
