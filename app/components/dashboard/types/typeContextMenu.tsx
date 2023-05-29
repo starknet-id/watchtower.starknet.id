@@ -27,7 +27,6 @@ const TypeContextMenu = ({
               <Popup
                 title="Delete group"
                 then={() => {
-                  console.log(type);
                   request(
                     `/delete_type`,
                     {

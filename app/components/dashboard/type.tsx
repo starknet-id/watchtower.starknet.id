@@ -128,7 +128,6 @@ const Type = ({
                 setTypes(
                   types.map((t) => {
                     if (t._id === type._id) {
-                      console.log(value);
                       return {
                         ...t,
                         notifications: value
