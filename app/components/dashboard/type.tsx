@@ -60,7 +60,7 @@ const Type = ({
         <div className={[styles.selector, styles.iconSelector].join(" ")}>
           {iconList.map((icon, index) => (
             <div
-              className={styles.item}
+              className={[styles.item, icon === type?.icon ? styles.active : null].join(" ")}
               key={`icon_${index}`}
               onClick={() => {
                 if (type) {
@@ -87,7 +87,7 @@ const Type = ({
         <div className={[styles.selector, styles.colorSelector].join(" ")}>
           {colorList.map((color, index) => (
             <div
-              className={styles.item}
+              className={[styles.item, color === type?.color ? styles.active : null].join(" ")}
               key={`color_${index}`}
               onClick={() => {
                 if (type) {
