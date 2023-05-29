@@ -182,6 +182,8 @@ const Type = ({
           ]}
         />
       </div>
+      <div className="flex items-center">
+        <label className="mr-3">Rename: </label>
       <TextInput
         placeholder="Name"
         value={type?.name || ""}
@@ -201,6 +203,7 @@ const Type = ({
           }
         }}
       />
+      </div>
     </>
   );
 };
