@@ -17,6 +17,8 @@ const Service = ({
   const serviceId = params.get("service_id");
   const service = services.find((service) => service._id === serviceId);
 
+  const logId = window.location.hash.split("#log_")[1];
+
   useEffect(() => {
     if (!serviceId) return;
     const load = () =>
@@ -38,7 +40,13 @@ const Service = ({
       <h1 className="text-outline">Logs - {service?.app_name}</h1>
       <div className={styles.container}>
         {logs.map((log, index) => (
-          <div className={styles.line} key={`log_${index}`}>
+          <div
+            className={[styles.line, log._id === logId && styles.selected].join(
+              " "
+            )}
+            key={`log_${index}`}
+            id={`log_${log._id}`}
+          >
             <p className={styles.date}>
               {new Date(log.timestamp * 1000).toLocaleDateString()}
             </p>
