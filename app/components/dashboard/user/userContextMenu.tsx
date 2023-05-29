@@ -1,7 +1,7 @@
 import request from "@/app/utils/request";
 import Popup from "../../UI/popup";
 import { useCookies } from "react-cookie";
-import styles from "@/app/styles/components/dashboard/user.module.css";
+import styles from "@/app/styles/components/dashboard/users.module.css";
 
 const UserContextmenu = ({
   setUsers,

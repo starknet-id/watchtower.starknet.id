@@ -6,19 +6,21 @@
 .line {
   display: flex;
   flex-direction: row;
-  margin: 10px 0;
+  margin: 0;
 }
 
 .line p {
 }
 
 .line .date {
+  width: -moz-fit-content;
   width: fit-content;
   color: rgb(192, 192, 192);
   margin-right: 5px;
 }
 
 .line .time {
+  width: -moz-fit-content;
   width: fit-content;
   margin-right: 15px;
   color: rgb(192, 192, 192);

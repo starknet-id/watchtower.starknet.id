@@ -22,6 +22,8 @@ const Dashboard = () => {
 
   const token = cookies[0].token;
 
+  console.log(token);
+
   useEffect(() => {
     request("/get_services", { token: token }).then((res) => {
       if (res.status === "success") {

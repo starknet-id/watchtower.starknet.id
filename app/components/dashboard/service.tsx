@@ -37,7 +37,7 @@ const Service = ({ services }: { services: Array<Service> }) => {
             <p className={styles.time}>
               {new Date(log.timestamp * 1000).toLocaleTimeString()}
             </p>
-            <p className={styles.message}>{log.message}</p>
+            <span className="whitespace-pre-line">{log.message}</span>
           </div>
         ))}
         {logs.length === 0 && <p className={styles.noLogs}>No logs found</p>}
