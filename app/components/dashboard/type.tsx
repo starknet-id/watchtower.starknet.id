@@ -54,6 +54,7 @@ const Type = ({
         </div>
         <h1 className="text-outline">Groups - {type?.name}</h1>
       </div>
+      <h2 className="my-3">Style</h2>
       <div className={styles.container}>
         <div className={[styles.selector, styles.iconSelector].join(" ")}>
           {iconList.map((icon, index) => (
@@ -113,6 +114,7 @@ const Type = ({
           ))}
         </div>
       </div>
+      <h2 className="my-3">Notifications</h2>
       {contactList.map((contact, index) => (
         <div
           className="flex items-center mr-3 mt-2 mb-1"
@@ -139,7 +141,8 @@ const Type = ({
           <p className="ml-2">{contact}</p>
         </div>
       ))}
-      <div className="flex mt-4">
+      <h2 className="my-3">Other</h2>
+      <div className="flex">
         <label className="mr-3">Importance: </label>
         <SelectBox
           placeholder="Importance"
