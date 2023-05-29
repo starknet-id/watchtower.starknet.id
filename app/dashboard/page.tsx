@@ -26,8 +26,6 @@ const Dashboard = () => {
 
   const token = cookies[0].token;
 
-  console.log(token);
-
   useEffect(() => {
     request("/get_services", { token: token }).then((res) => {
       if (res.status === "success") {
@@ -76,7 +74,7 @@ const Dashboard = () => {
             permissions={permissions}
           />
         ) : null}
-        {page === "user" ? <User users={users} setMenu={setMenu} /> : null}
+        {page === "user" ? <User users={users} setUsers={setUsers} /> : null}
       </div>
       <DashboardMenu permissions={permissions} />
       {menu}
