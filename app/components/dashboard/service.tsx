@@ -15,6 +15,7 @@ const Service = ({
   const cookies = useCookies();
   const [logs, setLogs] = useState<Array<Log>>([]);
   const serviceId = params.get("service_id");
+  const [loaded, setLoaded] = useState(false);
   const service = services.find((service) => service._id === serviceId);
 
   const logId = window.location.hash.split("#log_")[1];
@@ -27,13 +28,21 @@ const Service = ({
         app_id: serviceId,
       }).then((res) => {
         if (res.status === "success") setLogs(res.logs.reverse());
+        if (!loaded) setLoaded(true);
       });
     load();
     const interval = setInterval(load, 1000);
     return () => clearInterval(interval);
-  }, [serviceId]);
+  }, [serviceId, loaded]);
   const getType = (typeName: string) =>
     types.find((type) => type.name === typeName);
+
+  useEffect(() => {
+    if (logId && loaded) {
+      const element = document.getElementById(`log_${logId}`);
+      if (element) element.scrollIntoView();
+    }
+  }, [logId, loaded]);
 
   return (
     <>
