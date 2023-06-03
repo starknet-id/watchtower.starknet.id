@@ -46,7 +46,7 @@ const Logs = ({
 
   useEffect(() => {
     const targetServiceIds = params.get("services")?.split(",") || [];
-    setTargetServiceIds(targetServiceIds);
+    setTargetServiceIds(targetServiceIds.filter((id) => id !== ""));
     const targetTypeIds = params.get("types")?.split(",") || [];
     const targetTypesTemp = types.filter((type) =>
       targetTypeIds.includes(type._id)
@@ -60,7 +60,9 @@ const Logs = ({
     const load = () =>
       request("/get_logs", {
         token: cookies[0].token,
-        target_apps: targetServiceIds,
+        target_apps: targetServiceIds.length
+          ? targetServiceIds
+          : services.map((service) => service._id),
         target_types: targetTypes.length
           ? targetTypes.map((type) => type.name)
           : undefined,
