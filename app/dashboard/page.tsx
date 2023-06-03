@@ -71,7 +71,9 @@ const Dashboard = () => {
         {page === "logs" ? (
           <Logs services={services} types={types} setMenu={setMenu} />
         ) : null}
-        {page === "settings" ? <Settings setMenu={setMenu} /> : null}
+        {page === "settings" ? (
+          <Settings permissions={permissions} setMenu={setMenu} />
+        ) : null}
         {page === "types" ? (
           <Types setMenu={setMenu} types={types} setTypes={setTypes} />
         ) : null}
