@@ -1,0 +1,33 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 10px;
+}
+
+.container input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(88, 107, 133, 0.509);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+input:checked + .label {
+  background-color: var(--foreground-glass-light);
+}
+
+.name {
+}

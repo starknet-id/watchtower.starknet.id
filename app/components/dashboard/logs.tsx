@@ -24,6 +24,7 @@ const Logs = ({
   const [loaded, setLoaded] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [targetServiceIds, setTargetServiceIds] = useState<Array<string>>([]);
+  const [targetTypes, setTargetTypes] = useState<Array<Type>>([]);
   const targetServices = services.filter((service) =>
     targetServiceIds.includes(service._id)
   );
@@ -46,7 +47,12 @@ const Logs = ({
   useEffect(() => {
     const targetServiceIds = params.get("services")?.split(",") || [];
     setTargetServiceIds(targetServiceIds);
-  }, [params]);
+    const targetTypeIds = params.get("types")?.split(",") || [];
+    const targetTypesTemp = types.filter((type) =>
+      targetTypeIds.includes(type._id)
+    );
+    setTargetTypes(targetTypesTemp);
+  }, [params, types]);
 
   useEffect(() => {
     if (refresh) return setRefresh(false);
@@ -55,6 +61,9 @@ const Logs = ({
       request("/get_logs", {
         token: cookies[0].token,
         target_apps: targetServiceIds,
+        target_types: targetTypes.length
+          ? targetTypes.map((type) => type.name)
+          : undefined,
       }).then((res) => {
         if (res.status === "success") {
           const services = res.logs;
@@ -75,7 +84,7 @@ const Logs = ({
     load();
     const interval = setInterval(load, 1000);
     return () => clearInterval(interval);
-  }, [loaded, refresh]);
+  }, [loaded, refresh, targetServiceIds, targetTypes]);
   const getType = (typeName: string) =>
     types.find((type) => type.name === typeName);
 
@@ -101,6 +110,9 @@ const Logs = ({
         services={services}
         setRefresh={setRefresh}
         targetServiceIds={targetServiceIds}
+        types={types}
+        targetTypes={targetTypes}
+        setTargetTypes={setTargetTypes}
       />
 
       <div className={styles.container}>
