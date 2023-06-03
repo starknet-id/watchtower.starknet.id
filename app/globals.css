@@ -33,6 +33,10 @@ h3 {
   font-size: 1.25rem;
 }
 
+hr {
+  border: 1px solid var(--menu-border);
+}
+
 .text-light {
   color: var(--foreground-light);
 }

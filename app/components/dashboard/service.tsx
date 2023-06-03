@@ -1,5 +1,4 @@
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
 import GenerateTokenButton from "./service/generateTokenButton";
 import Code from "../UI/code";
 import Icon from "../icons/icon";
@@ -15,7 +14,6 @@ const Service = ({
   setMenu: SetMenu;
   permissions: Array<string>;
 }) => {
-  const router = useRouter();
   const params = useSearchParams();
   const serviceId = params.get("service_id");
   const service = services.find((service) => service._id === serviceId);
@@ -65,7 +63,7 @@ const Service = ({
         </div>
         {"}"}
       </Code>
-      <div className="mt-3">
+      <div className="mt-2">
         {permissions.find((p) => p === "administrator") && service && (
           <GenerateTokenButton service={service} setMenu={setMenu} />
         )}

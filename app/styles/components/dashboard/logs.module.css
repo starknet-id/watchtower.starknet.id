@@ -31,3 +31,19 @@
   margin: 0 -10px;
   border: 1px solid white;
 }
+
+.filters {
+  display: flex;
+  flex-direction: column;
+}
+
+.filters .category {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.filters .category .item {
+  margin: 5px;
+}

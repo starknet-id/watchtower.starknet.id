@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
 import openContextMenu from "@/app/utils/openContextMenu";
 import LogContextMenu from "./logs/logContextMenu";
+import LogsFilters from "./logs/logsFilters";
 
 const Logs = ({
   services,
@@ -21,7 +22,8 @@ const Logs = ({
   const router = useRouter();
   const [logs, setLogs] = useState<Array<Log>>([]);
   const [loaded, setLoaded] = useState(false);
-  const targetServiceIds = params.get("services")?.split(",") || [];
+  const [refresh, setRefresh] = useState(false);
+  const [targetServiceIds, setTargetServiceIds] = useState<Array<string>>([]);
   const targetServices = services.filter((service) =>
     targetServiceIds.includes(service._id)
   );
@@ -42,6 +44,12 @@ const Logs = ({
   };
 
   useEffect(() => {
+    const targetServiceIds = params.get("services")?.split(",") || [];
+    setTargetServiceIds(targetServiceIds);
+  }, [params]);
+
+  useEffect(() => {
+    if (refresh) return setRefresh(false);
     if (!targetServiceIds) return;
     const load = () =>
       request("/get_logs", {
@@ -67,7 +75,7 @@ const Logs = ({
     load();
     const interval = setInterval(load, 1000);
     return () => clearInterval(interval);
-  }, [loaded]);
+  }, [loaded, refresh]);
   const getType = (typeName: string) =>
     types.find((type) => type.name === typeName);
 
@@ -83,8 +91,18 @@ const Logs = ({
   return (
     <>
       <h1 className="text-outline">
-        Logs {!multipleServices ? ` - ${targetServices[0]?.app_name}` : ""}
+        Logs{" "}
+        {!multipleServices && targetServices[0]
+          ? ` - ${targetServices[0]?.app_name}`
+          : ""}
       </h1>
+
+      <LogsFilters
+        services={services}
+        setRefresh={setRefresh}
+        targetServiceIds={targetServiceIds}
+      />
+
       <div className={styles.container}>
         {logs.map((log, index) => (
           <div key={`log_${index}`}>
@@ -93,7 +111,7 @@ const Logs = ({
                 <h3 className={styles.appName}>
                   {getApp(log.app_id)?.app_name}
                 </h3>
-                <hr></hr>
+                <hr />
               </>
             )}
             <div

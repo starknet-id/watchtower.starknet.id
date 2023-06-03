@@ -5,6 +5,8 @@ import Icon from "../icons/icon";
 import Plus from "../icons/paths/plus";
 import CreateServiceMenu from "./home/createServiceMenu";
 import ServiceContextMenu from "./home/serviceContextMenu";
+import Link from "next/link";
+import TextDocument from "../icons/paths/textDocument";
 
 const Home = ({
   services,
@@ -29,7 +31,7 @@ const Home = ({
         <h1 className="text-outline mr-3">Services</h1>
         {permissions.find((p) => p === "administrator") && (
           <button
-            className="button glass flex items-center"
+            className="button glass flex items-center mr-3"
             onClick={() =>
               setMenu(
                 <CreateServiceMenu
@@ -46,6 +48,14 @@ const Home = ({
             <p>Create new service</p>
           </button>
         )}
+        <Link href={`/dashboard?page=logs`}>
+          <button className="button glass flex items-center">
+            <Icon>
+              <TextDocument />
+            </Icon>
+            <p>View logs</p>
+          </button>
+        </Link>
       </div>
       <div className={styles.servicesContainer}>
         {services.map((service, index) => (
