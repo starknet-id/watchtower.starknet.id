@@ -1,6 +1,5 @@
 "use client";
 
-import Background from "../components/UI/background";
 import DashboardMenu from "../components/dashboard/menu";
 import { useSearchParams } from "next/navigation";
 import styles from "../styles/dashboard.module.css";
@@ -52,7 +51,6 @@ const Dashboard = () => {
 
   return (
     <>
-      <Background />
       <div className={styles.container}>
         {page === "home" ? (
           <Home

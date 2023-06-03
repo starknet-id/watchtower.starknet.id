@@ -1,6 +1,5 @@
 "use client";
 
-import Background from "@/app/components/UI/background";
 import styles from "@/app/styles/login.module.css";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -53,7 +52,6 @@ const Home = () => {
 
   return (
     <>
-      <Background />
       <div className="flex flex-col items-center justify-center min-h-screen py-2">
         <form className={styles.form} onSubmit={login}>
           <h2 className="text-light">Sign in</h2>

@@ -19,9 +19,20 @@ const Service = ({
   const [loaded, setLoaded] = useState(false);
   const serviceId = params.get("service_id");
   const service = services.find((service) => service._id === serviceId);
+  const [logId, setLogId] = useState<string>("");
 
-  const logId =
-    typeof window !== "undefined" ? window.location.hash.split("#log_")[1] : "";
+  useEffect(() => {
+    setLogId(
+      typeof window !== "undefined"
+        ? window.location.hash.split("#log_")[1]
+        : ""
+    );
+  }, []);
+
+  const select = (id: string) => {
+    setLogId(id);
+    router.push(`${window.location.href.split("#")[0]}#log_${id}`);
+  };
 
   useEffect(() => {
     if (!serviceId) return;
@@ -58,11 +69,7 @@ const Service = ({
             )}
             key={`log_${index}`}
             id={`log_${log._id}`}
-            onClick={() => {
-              router.push(
-                `${window.location.href.split("#")[0]}#log_${log._id}`
-              );
-            }}
+            onClick={() => select(log._id)}
           >
             <p className={styles.date}>
               {new Date(log.timestamp * 1000).toLocaleDateString()}
