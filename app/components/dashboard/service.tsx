@@ -1,93 +1,74 @@
-import styles from "@/app/styles/components/dashboard/serviceLogs.module.css";
-import request from "@/app/utils/request";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
+import GenerateTokenButton from "./service/generateTokenButton";
+import Code from "../UI/code";
+import Icon from "../icons/icon";
+import TextDocument from "../icons/paths/textDocument";
+import Link from "next/link";
 
 const Service = ({
   services,
-  types,
+  setMenu,
+  permissions,
 }: {
   services: Array<Service>;
-  types: Array<Type>;
+  setMenu: SetMenu;
+  permissions: Array<string>;
 }) => {
-  const params = useSearchParams();
-  const cookies = useCookies();
   const router = useRouter();
-  const [logs, setLogs] = useState<Array<Log>>([]);
-  const [loaded, setLoaded] = useState(false);
+  const params = useSearchParams();
   const serviceId = params.get("service_id");
   const service = services.find((service) => service._id === serviceId);
-  const [logId, setLogId] = useState<string>("");
-
-  useEffect(() => {
-    setLogId(
-      typeof window !== "undefined"
-        ? window.location.hash.split("#log_")[1]
-        : ""
-    );
-  }, []);
-
-  const select = (id: string) => {
-    setLogId(id);
-    router.push(`${window.location.href.split("#")[0]}#log_${id}`);
-  };
-
-  useEffect(() => {
-    if (!serviceId) return;
-    const load = () =>
-      request("/get_logs", {
-        token: cookies[0].token,
-        app_id: serviceId,
-      }).then((res) => {
-        if (res.status === "success") setLogs(res.logs.reverse());
-        if (!loaded) setLoaded(true);
-      });
-    load();
-    const interval = setInterval(load, 1000);
-    return () => clearInterval(interval);
-  }, [serviceId, loaded]);
-  const getType = (typeName: string) =>
-    types.find((type) => type.name === typeName);
-
-  useEffect(() => {
-    if (logId && loaded) {
-      const element = document.getElementById(`log_${logId}`);
-      if (element) element.scrollIntoView();
-    }
-  }, [logId, loaded]);
 
   return (
     <>
-      <h1 className="text-outline">Logs - {service?.app_name}</h1>
-      <div className={styles.container}>
-        {logs.map((log, index) => (
-          <div
-            className={[styles.line, log._id === logId && styles.selected].join(
-              " "
-            )}
-            key={`log_${index}`}
-            id={`log_${log._id}`}
-            onClick={() => select(log._id)}
-          >
-            <p className={styles.date}>
-              {new Date(log.timestamp * 1000).toLocaleDateString()}
-            </p>
-            <p className={styles.time}>
-              {new Date(log.timestamp * 1000).toLocaleTimeString()}
-            </p>
-            <span
-              style={{
-                color: getType(log.type_)?.color,
-              }}
-              className="whitespace-pre-line"
-            >
-              {log.message}
-            </span>
+      <div className="flex items-center">
+        <h1 className="text-outline mr-3">Services - {service?.app_name}</h1>
+        <Link href={`/dashboard?page=logs&services=${serviceId}`}>
+          <button className="button glass flex items-center">
+            <Icon>
+              <TextDocument />
+            </Icon>
+            <p>View logs</p>
+          </button>
+        </Link>
+      </div>
+      <Code>
+        <div className="text-xs">
+          <span className="text-blue-500">POST</span>{" "}
+          {process.env.NEXT_PUBLIC_API_URL}/service/add_message
+        </div>
+        {"{"}
+        <div>
+          <span className="text-blue-500">{"\t"}"token"</span>:{" "}
+          <span className="text-green-500">"your_token"</span>,
+        </div>
+        <div>
+          <span className="text-blue-500">{"\t"}"log"</span>: {"{"}
+          <div>
+            <span className="text-blue-500">{"\t\t"}"app_id"</span>:{" "}
+            <span className="text-green-500">"{serviceId}"</span>,
           </div>
-        ))}
-        {logs.length === 0 && <p className={styles.noLogs}>No logs found</p>}
+          <div>
+            <span className="text-blue-500">{"\t\t"}"type"</span>:{" "}
+            <span className="text-green-500">"default"</span>,
+          </div>
+          <div>
+            <span className="text-blue-500">{"\t\t"}"message"</span>:{" "}
+            <span className="text-green-500">"This is a test message."</span>,
+          </div>
+          <div>
+            <span className="text-blue-500">{"\t\t"}"timestamp"</span>:{" "}
+            <span className="text-green-500">"1627272880"</span>
+          </div>
+          {"\t}"}
+        </div>
+        {"}"}
+      </Code>
+      <div className="mt-3">
+        {permissions.find((p) => p === "administrator") && service && (
+          <GenerateTokenButton service={service} setMenu={setMenu} />
+        )}
       </div>
     </>
   );

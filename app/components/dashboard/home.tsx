@@ -26,7 +26,7 @@ const Home = ({
   return (
     <>
       <div className="flex items-center">
-        <h1 className="text-outline mr-3">Logs</h1>
+        <h1 className="text-outline mr-3">Services</h1>
         {permissions.find((p) => p === "administrator") && (
           <button
             className="button glass flex items-center"

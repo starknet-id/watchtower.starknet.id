@@ -1,0 +1,13 @@
+.code code {
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+  color: var(--foreground);
+  background-color: var(--foreground-glass);
+  border-radius: var(--menu-border-radius);
+  padding: 5px 10px;
+  border: 1px solid var(--foreground-glass-light);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  max-height: 300px;
+}

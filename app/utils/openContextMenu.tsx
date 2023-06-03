@@ -11,8 +11,8 @@ const openContextMenu = (
   let x = e.clientX;
   let y = e.clientY;
   if (width) {
-    if (x - width < 0) x = width / 2;
-    if (x + width > window.innerWidth) x = window.innerWidth - width / 2;
+    if (x - width / 2 < 0) x = width / 2;
+    if (x + width / 2 > window.innerWidth) x = window.innerWidth - width / 2;
     if (y - 100 < 0) y = 100;
     if (y + 100 > window.innerHeight) y = window.innerHeight - 100;
   }

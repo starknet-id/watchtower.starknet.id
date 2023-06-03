@@ -29,6 +29,10 @@ h2 {
   font-size: 1.5rem;
 }
 
+h3 {
+  font-size: 1.25rem;
+}
+
 .text-light {
   color: var(--foreground-light);
 }
