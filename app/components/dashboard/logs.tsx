@@ -152,10 +152,10 @@ const Logs = ({
               }
             >
               <p className={styles.date}>
-                {new Date(log.timestamp * 1000).toLocaleDateString()}
+                {new Date(log.timestamp).toLocaleDateString()}
               </p>
               <p className={styles.time}>
-                {new Date(log.timestamp * 1000).toLocaleTimeString()}
+                {new Date(log.timestamp).toLocaleTimeString()}
               </p>
               <span
                 style={{
