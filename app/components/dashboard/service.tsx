@@ -38,26 +38,29 @@ const Service = ({
         </div>
         {"{"}
         <div>
-          <span className="text-blue-500">{"\t"}"token"</span>:{" "}
-          <span className="text-green-500">"your_token"</span>,
+          <span className="text-blue-500">{"\t"}&quot;token&quot;</span>:{" "}
+          <span className="text-green-500">&quot;your_token&quot;</span>,
         </div>
         <div>
-          <span className="text-blue-500">{"\t"}"log"</span>: {"{"}
+          <span className="text-blue-500">{"\t"}&quot;log&quot;</span>: {"{"}
           <div>
-            <span className="text-blue-500">{"\t\t"}"app_id"</span>:{" "}
-            <span className="text-green-500">"{serviceId}"</span>,
+            <span className="text-blue-500">{"\t\t"}&quot;app_id&quot;</span>:{" "}
+            <span className="text-green-500">&quot;{serviceId}&quot;</span>,
           </div>
           <div>
-            <span className="text-blue-500">{"\t\t"}"type"</span>:{" "}
-            <span className="text-green-500">"default"</span>,
+            <span className="text-blue-500">{"\t\t"}&quot;type&quot;</span>:{" "}
+            <span className="text-green-500">&quot;default&quot;</span>,
           </div>
           <div>
-            <span className="text-blue-500">{"\t\t"}"message"</span>:{" "}
-            <span className="text-green-500">"This is a test message."</span>,
+            <span className="text-blue-500">{"\t\t"}&quot;message&quot;</span>:{" "}
+            <span className="text-green-500">
+              &quot;This is a test message.&quot;
+            </span>
+            ,
           </div>
           <div>
-            <span className="text-blue-500">{"\t\t"}"timestamp"</span>:{" "}
-            <span className="text-green-500">"1627272880"</span>
+            <span className="text-blue-500">{"\t\t"}&quot;timestamp&quot;</span>
+            : <span className="text-green-500">&quot;1627272880&quot;</span>
           </div>
           {"\t}"}
         </div>
