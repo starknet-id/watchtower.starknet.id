@@ -1,6 +1,7 @@
 import styles from "@/app/styles/components/dashboard/menu.module.css";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const DashboardMenu = ({
   permissions,
@@ -11,9 +12,6 @@ const DashboardMenu = ({
 }) => {
   const router = useRouter();
   const cookies = useCookies();
-  function route(path: string) {
-    router.push(`/dashboard?page=${path}`);
-  }
 
   const pages = {
     logs: {
@@ -83,38 +81,26 @@ const DashboardMenu = ({
       {Object.keys(pages).map((key, index) =>
         !(pages as any)[key].administrator ||
         permissions.includes("administrator") ? (
-          <svg
-            key={`menu_${index}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            onClick={() => route(key)}
-            className={[styles.icon, page === key && styles.active].join(" ")}
+          <p
+            key={`page_${index}`}
+            className={[styles.link, page === key && styles.active].join(" ")}
+            onClick={() => router.push(`/dashboard?page=${key}`)}
           >
-            {(pages as any)[key].icon}
-          </svg>
+            {key}
+          </p>
         ) : null
       )}
-      <svg
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
+      <p
         onClick={() => {
           cookies[1]("token", "", {
             path: "/",
           });
           router.push("/");
         }}
-        className={styles.icon}
+        className={[styles.link, styles.logout].join(" ")}
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-        />
-      </svg>
+        Log Out
+      </p>
     </div>
   );
 };

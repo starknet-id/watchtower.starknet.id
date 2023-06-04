@@ -1,14 +1,14 @@
 .container {
   background-color: var(--menu-background);
   border-radius: var(--menu-border-radius);
-  padding: 15px 15px 15px 35px;
+  padding: 15px;
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid var(--menu-border);
-  width: calc(100vw - 3em);
-  height: calc(100vh - 2rem);
+  border-top: 1px solid var(--menu-border);
+  width: calc(100vw - 2em);
+  height: calc(100vh - 4rem);
   display: block;
-  margin: 1rem 1rem 1rem 2rem;
+  margin: 3rem 1rem 1rem;
   overflow-y: auto;
   overflow-x: hidden;
 }
