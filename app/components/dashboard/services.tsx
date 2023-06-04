@@ -27,11 +27,11 @@ const Services = ({
 
   return (
     <div>
-      <div className="flex items-center">
-        <h1 className={dashboardStyles.title}>Services</h1>
+      <h1 className={dashboardStyles.title}>Services</h1>
+      <div className="my-4 flex">
         {permissions.find((p) => p === "administrator") && (
           <button
-            className="button glass flex items-center mr-3"
+            className="button glass flex items-center mr-4 mb-1"
             onClick={() =>
               setMenu(
                 <CreateServiceMenu

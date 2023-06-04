@@ -21,26 +21,24 @@ const Types = ({
 
   return (
     <div>
-      <div className="flex items-center">
-        <h1 className={dashboardStyles.title}>Types</h1>
-        <button
-          className="button glass flex items-center"
-          onClick={() =>
-            setMenu(
-              <CreateTypeMenu
-                setMenu={setMenu}
-                types={types}
-                setTypes={setTypes}
-              />
-            )
-          }
-        >
-          <Icon>
-            <Plus />
-          </Icon>
-          <p>Create a new type</p>
-        </button>
-      </div>
+      <h1 className={dashboardStyles.title}>Types</h1>
+      <button
+        className="button glass flex items-center my-4"
+        onClick={() =>
+          setMenu(
+            <CreateTypeMenu
+              setMenu={setMenu}
+              types={types}
+              setTypes={setTypes}
+            />
+          )
+        }
+      >
+        <Icon>
+          <Plus />
+        </Icon>
+        <p>Create a new type</p>
+      </button>
       <section className={styles.container}>
         <div className={[styles.typeContainer, styles.disabled].join(" ")}>
           <SolidIcon>

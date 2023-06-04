@@ -25,19 +25,15 @@ const Service = ({
 
   return (
     <div className={styles.container}>
-      <div className="flex items-center">
-        <h1 className={dashboardStyles.title}>
-          Services - {service?.app_name}
-        </h1>
-        <Link href={`/dashboard?page=logs&services=${serviceId}`}>
-          <button className="button glass flex items-center">
-            <Icon>
-              <TextDocument />
-            </Icon>
-            <p>View logs</p>
-          </button>
-        </Link>
-      </div>
+      <h1 className={dashboardStyles.title}>Services - {service?.app_name}</h1>
+      <Link href={`/dashboard?page=logs&services=${serviceId}`}>
+        <button className="button glass flex items-center">
+          <Icon>
+            <TextDocument />
+          </Icon>
+          <p className="my-4">View logs</p>
+        </button>
+      </Link>
       <hr className="hr-soft"></hr>
       <Code>
         <div className="text-xs">

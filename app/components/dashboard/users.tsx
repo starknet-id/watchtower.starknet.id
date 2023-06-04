@@ -22,26 +22,25 @@ const Users = ({
 
   return (
     <div>
-      <div className="flex items-center">
-        <h1 className={dashboardStyles.title}>Users</h1>
-        <button
-          className="button glass flex items-center"
-          onClick={() =>
-            setMenu(
-              <CreateUserMenu
-                setMenu={setMenu}
-                setUsers={setUsers}
-                users={users}
-              />
-            )
-          }
-        >
-          <Icon>
-            <Plus />
-          </Icon>
-          <p>Create user</p>
-        </button>
-      </div>
+      <h1 className={dashboardStyles.title}>Users</h1>
+      <button
+        className="button glass flex items-center my-4"
+        onClick={() =>
+          setMenu(
+            <CreateUserMenu
+              setMenu={setMenu}
+              setUsers={setUsers}
+              users={users}
+            />
+          )
+        }
+      >
+        <Icon>
+          <Plus />
+        </Icon>
+        <p>Create user</p>
+      </button>
+
       <div className={styles.usersContainer}>
         {users.map((user, index) => (
           <div key={`user_${index}`}>

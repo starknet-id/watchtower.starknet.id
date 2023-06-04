@@ -57,7 +57,7 @@ const User = ({
 
   return (
     <div className={styles.container}>
-      <div className="flex items-center mb-2">
+      <div className="flex items-center">
         {user ? (
           <div className="mr-3">
             <SolidIcon width={45}>
