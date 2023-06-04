@@ -38,6 +38,7 @@ const Service = ({
           </button>
         </Link>
       </div>
+      <hr className="hr-soft"></hr>
       <Code>
         <div className="text-xs">
           <span className="text-blue-500">POST</span>{" "}

@@ -43,6 +43,10 @@ hr {
   background-color: var(--inactive);
 }
 
+.hr-soft {
+  background-color: var(--menu-border);
+}
+
 .text-light {
   color: var(--foreground-light);
 }

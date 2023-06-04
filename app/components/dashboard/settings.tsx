@@ -18,6 +18,7 @@ const Settings = ({
   return (
     <div>
       <h1 className={dashboardStyles.title}>Settings</h1>
+      <hr className="hr-soft"></hr>
       <main className={styles.container}>
         <section className={styles.section}>
           <button
