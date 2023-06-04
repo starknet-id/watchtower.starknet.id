@@ -43,7 +43,7 @@ const Type = ({
   }, [type]);
 
   return (
-    <>
+    <div>
       <div className="flex items-center">
         <div
           style={{
@@ -222,7 +222,7 @@ const Type = ({
           types={types}
         />
       )}
-    </>
+    </div>
   );
 };
 

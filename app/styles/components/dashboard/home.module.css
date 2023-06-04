@@ -1,6 +1,8 @@
 .servicesContainer {
   display: flex;
   flex-wrap: wrap;
+  margin: 0 -10px;
+  max-width: 90vw;
 }
 
 .service {

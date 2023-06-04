@@ -26,7 +26,7 @@ const Services = ({
   };
 
   return (
-    <>
+    <div>
       <div className="flex items-center">
         <h1 className={dashboardStyles.title}>Services</h1>
         {permissions.find((p) => p === "administrator") && (
@@ -68,7 +68,7 @@ const Services = ({
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

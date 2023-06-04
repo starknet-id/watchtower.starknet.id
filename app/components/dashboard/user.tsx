@@ -55,7 +55,7 @@ const User = ({
   }, [user, permissions, loaded]);
 
   return (
-    <>
+    <div>
       <div className="flex items-center">
         {user ? (
           <div className="mr-3">
@@ -111,7 +111,7 @@ const User = ({
           />
         )}
       </section>
-    </>
+    </div>
   );
 };
 

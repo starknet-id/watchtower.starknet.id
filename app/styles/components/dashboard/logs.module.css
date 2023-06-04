@@ -1,3 +1,8 @@
+.mainContainer {
+  min-width: 40vw;
+  max-width: 90vw;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -43,6 +48,7 @@
   flex-direction: row;
   align-items: center;
   margin: 0 -5px;
+  flex-wrap: wrap;
 }
 
 .filters .category .item {

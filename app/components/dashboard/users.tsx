@@ -21,7 +21,7 @@ const Users = ({
   const router = useRouter();
 
   return (
-    <>
+    <div>
       <div className="flex items-center">
         <h1 className={dashboardStyles.title}>Users</h1>
         <button
@@ -71,7 +71,7 @@ const Users = ({
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

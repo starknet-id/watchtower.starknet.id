@@ -102,7 +102,7 @@ const Logs = ({
     services.find((app) => app._id === id) || { app_name: "Unknown" };
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <h1 className={dashboardStyles.title}>
         Logs {!multipleServices && ` - ${targetServices[0]?.app_name}`}
       </h1>
@@ -168,7 +168,7 @@ const Logs = ({
         ))}
         {logs.length === 0 && <p className={styles.noLogs}>No logs found</p>}
       </div>
-    </>
+    </div>
   );
 };
 

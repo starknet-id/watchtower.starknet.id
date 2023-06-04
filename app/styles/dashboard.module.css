@@ -7,7 +7,9 @@
   border-top: 1px solid var(--menu-border);
   width: calc(100vw - 2em);
   height: calc(100vh - 4rem);
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 3rem 1rem 1rem;
   overflow-y: auto;
   overflow-x: hidden;

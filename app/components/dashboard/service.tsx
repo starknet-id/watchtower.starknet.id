@@ -6,6 +6,7 @@ import Icon from "../icons/icon";
 import TextDocument from "../icons/paths/textDocument";
 import Link from "next/link";
 import DeleteServiceButton from "./service/deleteServiceButton";
+import styles from "@/app/styles/components/dashboard/service.module.css";
 
 const Service = ({
   services,
@@ -23,7 +24,7 @@ const Service = ({
   const service = services.find((service) => service._id === serviceId);
 
   return (
-    <>
+    <div className={styles.container}>
       <div className="flex items-center">
         <h1 className={dashboardStyles.title}>
           Services - {service?.app_name}
@@ -86,7 +87,7 @@ const Service = ({
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

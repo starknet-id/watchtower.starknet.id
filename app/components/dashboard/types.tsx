@@ -20,7 +20,7 @@ const Types = ({
   const router = useRouter();
 
   return (
-    <>
+    <div>
       <div className="flex items-center">
         <h1 className={dashboardStyles.title}>Types</h1>
         <button
@@ -73,7 +73,7 @@ const Types = ({
           </div>
         ))}
       </section>
-    </>
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ const Settings = ({
   permissions: Array<Permission>;
 }) => {
   return (
-    <>
+    <div>
       <h1 className={dashboardStyles.title}>Settings</h1>
       <main className={styles.container}>
         <section className={styles.section}>
@@ -69,7 +69,7 @@ const Settings = ({
           </>
         )}
       </main>
-    </>
+    </div>
   );
 };
 

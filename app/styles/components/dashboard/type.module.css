@@ -2,6 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   margin: 0 -1rem;
+  min-width: 40vw;
+  max-width: 90vw;
 }
 
 .selector {
