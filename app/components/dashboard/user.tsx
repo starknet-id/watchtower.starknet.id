@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import request from "@/app/utils/request";
 import dashboardStyles from "@/app/styles/dashboard.module.css";
 import DeleteUserButton from "./user/deleteUserButton";
+import styles from "@/app/styles/components/dashboard/user.module.css";
 
 const User = ({
   users,
@@ -55,8 +56,8 @@ const User = ({
   }, [user, permissions, loaded]);
 
   return (
-    <div>
-      <div className="flex items-center">
+    <div className={styles.container}>
+      <div className="flex items-center mb-2">
         {user ? (
           <div className="mr-3">
             <SolidIcon width={45}>
@@ -66,6 +67,7 @@ const User = ({
         ) : null}
         <h1 className={dashboardStyles.title}>User - {user?.username}</h1>
       </div>
+      <hr className="hr-soft"></hr>
       <section className="mt-2">
         <h2>Permissions</h2>
         <div className="flex items-center mt-1">
