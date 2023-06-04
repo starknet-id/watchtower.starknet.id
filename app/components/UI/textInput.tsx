@@ -5,19 +5,23 @@ const TextInput = ({
   type = "text",
   placeholder,
   onChange,
+  id,
 }: {
   value?: string;
   type?: string;
   placeholder: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  id?: string;
 }) => {
   return (
     <input
       type={type}
       className={styles.input}
       placeholder={placeholder}
-      value={value}
+      value={onChange && value}
+      defaultValue={!onChange ? value : undefined}
       onChange={onChange}
+      id={id}
     />
   );
 };

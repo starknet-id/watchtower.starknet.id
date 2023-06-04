@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  margin: 5px 0;
+}
+
+.line {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.line button {
+  min-width: 180px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
