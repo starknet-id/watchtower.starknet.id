@@ -2,6 +2,7 @@ import request from "@/app/utils/request";
 import Popup from "../../UI/popup";
 import { useCookies } from "react-cookie";
 import styles from "@/app/styles/components/dashboard/users.module.css";
+import TextInput from "../../UI/textInput";
 
 const CreateTypeMenu = ({
   setTypes,
@@ -16,7 +17,7 @@ const CreateTypeMenu = ({
 
   return (
     <Popup
-      title="Create group"
+      title="Create type"
       then={() => {
         const name = (document.getElementById("name") as HTMLInputElement)
           .value;
@@ -46,16 +47,8 @@ const CreateTypeMenu = ({
       buttonName={"Create"}
       setMenu={setMenu}
       cross={true}
-    >
-      <div className={styles.popupContent}>
-        <div className="flex items-center mb-4">
-          <label className="mr-2" htmlFor="name">
-            Name
-          </label>
-          <input className="input glass white" type="text" id="name" />
-        </div>
-      </div>
-    </Popup>
+      actionBar={<TextInput id="name" placeholder="Name" />}
+    />
   );
 };
 

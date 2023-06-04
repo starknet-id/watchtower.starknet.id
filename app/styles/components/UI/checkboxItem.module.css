@@ -19,15 +19,30 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(88, 107, 133, 0.509);
   -webkit-transition: 0.4s;
   transition: 0.4s;
   border-radius: 34px;
+  border: 1px solid var(--menu-border);
+}
+
+.container svg {
+  color: var(--inactive);
 }
 
 input:checked + .label {
-  background-color: var(--foreground-glass-light);
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
 }
 
 .name {
+  color: var(--inactive);
+}
+
+input:checked ~ .name {
+  color: var(--foreground);
+}
+
+.container input:checked ~ svg,
+.container input:checked ~ div svg {
+  color: var(--foreground);
 }

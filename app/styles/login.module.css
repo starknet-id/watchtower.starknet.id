@@ -1,17 +1,12 @@
 .form {
-  background-color: var(--menu-background);
-  border-radius: var(--menu-border-radius);
   padding: var(--menu-padding);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-radius: 12px;
-  border: 1px solid var(--menu-border);
-  width: 450px;
+  width: 360px;
   max-width: 100%;
 }
 
-.inputContainer {
+.form input {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  width: 100%;
+  margin: 10px 0;
 }

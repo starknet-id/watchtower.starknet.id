@@ -1,4 +1,5 @@
 import styles from "@/app/styles/components/dashboard/logs.module.css";
+import dashboardStyles from "@/app/styles/dashboard.module.css";
 import request from "@/app/utils/request";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -29,7 +30,7 @@ const Logs = ({
     targetServiceIds.includes(service._id)
   );
   const [logId, setLogId] = useState<string>("");
-  const multipleServices = targetServices.length > 1;
+  const multipleServices = targetServices.length > 1 || !targetServiceIds[0];
 
   useEffect(() => {
     setLogId(
@@ -97,15 +98,13 @@ const Logs = ({
     }
   }, [logId, loaded]);
 
-  const getApp = (id: string) => targetServices.find((app) => app._id === id);
+  const getApp = (id: string) =>
+    services.find((app) => app._id === id) || { app_name: "Unknown" };
 
   return (
     <>
-      <h1 className="text-outline">
-        Logs{" "}
-        {!multipleServices && targetServices[0]
-          ? ` - ${targetServices[0]?.app_name}`
-          : ""}
+      <h1 className={dashboardStyles.title}>
+        Logs {!multipleServices && ` - ${targetServices[0]?.app_name}`}
       </h1>
 
       <LogsFilters
@@ -116,7 +115,6 @@ const Logs = ({
         targetTypes={targetTypes}
         setTargetTypes={setTargetTypes}
       />
-
       <div className={styles.container}>
         {logs.map((log, index) => (
           <div key={`log_${index}`}>

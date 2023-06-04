@@ -5,9 +5,8 @@ import styles from "@/app/styles/components/dashboard/types.module.css";
 import IconRouter from "../icons/iconRouter";
 import SolidIcon from "../icons/solidIcon";
 import TextDocument from "../icons/paths/textDocument";
-import openContextMenu from "@/app/utils/openContextMenu";
-import TypeContextMenu from "./types/typeContextMenu";
 import { useRouter } from "next/navigation";
+import dashboardStyles from "@/app/styles/dashboard.module.css";
 
 const Types = ({
   setMenu,
@@ -23,7 +22,7 @@ const Types = ({
   return (
     <>
       <div className="flex items-center">
-        <h1 className="text-outline mr-3">Types</h1>
+        <h1 className={dashboardStyles.title}>Types</h1>
         <button
           className="button glass flex items-center"
           onClick={() =>
@@ -49,39 +48,28 @@ const Types = ({
           </SolidIcon>
           <p>default</p>
         </div>
+        <hr></hr>
         {types.map((type) => (
-          <div
-            className={styles.typeContainer}
-            key={`type_${type._id}`}
-            onContextMenu={(e) =>
-              openContextMenu(
-                e,
-                setMenu,
-                <TypeContextMenu
-                  setMenu={setMenu}
-                  type={type}
-                  types={types}
-                  setTypes={setTypes}
-                />,
-                400
-              )
-            }
-            onClick={() =>
-              router.push(`/dashboard?page=type&type_id=${type._id}`)
-            }
-          >
+          <div key={`type_${type._id}`}>
             <div
-              style={{
-                color: type?.color,
-              }}
+              className={styles.typeContainer}
+              onClick={() =>
+                router.push(`/dashboard?page=type&type_id=${type._id}`)
+              }
             >
-              {" "}
-              <SolidIcon>
-                <IconRouter name={type.icon} />
-              </SolidIcon>
+              <div
+                style={{
+                  color: type?.color,
+                }}
+              >
+                {" "}
+                <SolidIcon>
+                  <IconRouter name={type.icon} />
+                </SolidIcon>
+              </div>
+              <p>{type.name}</p>
             </div>
-
-            <p>{type.name}</p>
+            <hr></hr>
           </div>
         ))}
       </section>

@@ -5,13 +5,17 @@ import UserIcon from "./user/userIcon";
 import Switch from "../UI/switch";
 import { useEffect, useState } from "react";
 import request from "@/app/utils/request";
+import dashboardStyles from "@/app/styles/dashboard.module.css";
+import DeleteUserButton from "./user/deleteUserButton";
 
 const User = ({
   users,
   setUsers,
+  setMenu,
 }: {
   users: Array<User>;
   setUsers: (users: Array<User>) => void;
+  setMenu: SetMenu;
 }) => {
   const [permissions, setPermissions] = useState<Record<Permission, boolean>>({
     administrator: false,
@@ -60,7 +64,7 @@ const User = ({
             </SolidIcon>
           </div>
         ) : null}
-        <h1 className="text-outline mr-3">User - {user?.username}</h1>
+        <h1 className={dashboardStyles.title}>User - {user?.username}</h1>
       </div>
       <section className="mt-2">
         <h2>Permissions</h2>
@@ -95,6 +99,17 @@ const User = ({
             </div>
           ))}
         </div>
+      </section>
+      <section className="mt-2">
+        <h2>Dangerous</h2>
+        {user && (
+          <DeleteUserButton
+            user={user}
+            setUsers={setUsers}
+            users={users}
+            setMenu={setMenu}
+          />
+        )}
       </section>
     </>
   );

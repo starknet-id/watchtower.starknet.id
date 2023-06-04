@@ -3,6 +3,7 @@ import Popup from "../../UI/popup";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
 import styles from "@/app/styles/components/dashboard/users.module.css";
+import TextInput from "../../UI/textInput";
 
 const ResetPasswordMenu = ({ setMenu }: { setMenu: SetMenu }) => {
   const router = useRouter();
@@ -38,18 +39,9 @@ const ResetPasswordMenu = ({ setMenu }: { setMenu: SetMenu }) => {
       cross={true}
     >
       <div className={styles.popupContent}>
-        <div className="flex items-center mb-4">
-          <label htmlFor="password1" className="mr-2">
-            New password
-          </label>
-          <input className="input glass white" type="password" id="password1" />
-        </div>
-        <div className="flex items-center mb-4">
-          <label htmlFor="password2" className="mr-2">
-            Repeat password
-          </label>
-          <input className="input glass white" type="password" id="password2" />
-        </div>
+        <TextInput fit={true} id="password1" placeholder="New password" />
+        <div className="mt-4" />
+        <TextInput fit={true} id="password2" placeholder="Repeat password" />
       </div>
     </Popup>
   );

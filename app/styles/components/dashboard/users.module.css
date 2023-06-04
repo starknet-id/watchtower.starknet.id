@@ -7,7 +7,6 @@
 .user {
   background-color: var(--menu-background);
   padding: 5px 15px;
-  border: 1px solid rgba(0, 0, 0, 0.204);
   cursor: pointer;
   margin: 10px 0;
   height: 50px;

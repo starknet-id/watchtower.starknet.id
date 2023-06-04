@@ -2,6 +2,7 @@ import request from "@/app/utils/request";
 import Popup from "../../UI/popup";
 import { useCookies } from "react-cookie";
 import styles from "@/app/styles/components/dashboard/users.module.css";
+import TextInput from "../../UI/textInput";
 
 const CreateUserMenu = ({
   setUsers,
@@ -50,18 +51,9 @@ const CreateUserMenu = ({
       cross={true}
     >
       <div className={styles.popupContent}>
-        <div className="flex items-center mb-4">
-          <label className="mr-2" htmlFor="username">
-            Username
-          </label>
-          <input className="input glass white" type="text" id="username" />
-        </div>
-        <div className="flex items-center">
-          <label className="mr-2" htmlFor="password">
-            Password
-          </label>
-          <input className="input glass white" type="password" id="password" />
-        </div>
+        <TextInput fit={true} id="username" placeholder="Username" />
+        <div className="mt-4" />
+        <TextInput fit={true} id="password" placeholder="Password" />
       </div>
     </Popup>
   );

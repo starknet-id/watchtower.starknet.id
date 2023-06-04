@@ -8,19 +8,24 @@
   z-index: 100;
 }
 
-.container svg {
+.icon {
   width: 50px;
   margin: auto calc(2rem - 25px);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  background-color: var(--menu-background);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-radius: 50%;
-  border: 1px solid var(--menu-border);
+  border: 1px solid var(--inactive);
+  color: var(--inactive);
   padding: 5px;
 }
 
-.container svg:hover {
+.icon.active {
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+
+.icon:hover {
   transform: scale(1.1);
 }

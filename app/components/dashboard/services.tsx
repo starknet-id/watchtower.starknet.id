@@ -3,12 +3,12 @@ import openContextMenu from "@/app/utils/openContextMenu";
 import { useRouter } from "next/navigation";
 import Icon from "../icons/icon";
 import Plus from "../icons/paths/plus";
-import CreateServiceMenu from "./home/createServiceMenu";
-import ServiceContextMenu from "./home/serviceContextMenu";
+import CreateServiceMenu from "./services/createServiceMenu";
 import Link from "next/link";
 import TextDocument from "../icons/paths/textDocument";
+import dashboardStyles from "@/app/styles/dashboard.module.css";
 
-const Home = ({
+const Services = ({
   services,
   setServices,
   setMenu,
@@ -28,7 +28,7 @@ const Home = ({
   return (
     <>
       <div className="flex items-center">
-        <h1 className="text-outline mr-3">Services</h1>
+        <h1 className={dashboardStyles.title}>Services</h1>
         {permissions.find((p) => p === "administrator") && (
           <button
             className="button glass flex items-center mr-3"
@@ -63,21 +63,6 @@ const Home = ({
             className={styles.service}
             key={`service_${index}`}
             onClick={() => router.push(getLink(service))}
-            onContextMenu={(e) =>
-              openContextMenu(
-                e,
-                setMenu,
-
-                <ServiceContextMenu
-                  setMenu={setMenu}
-                  service={service}
-                  setServices={setServices}
-                  services={services}
-                  permissions={permissions}
-                />,
-                400
-              )
-            }
           >
             <p>{service.app_name}</p>
           </div>
@@ -87,4 +72,4 @@ const Home = ({
   );
 };
 
-export default Home;
+export default Services;

@@ -11,13 +11,17 @@ import Switch from "../UI/switch";
 import contactList from "@/app/utils/contactList";
 import SelectBox from "../UI/selectBox";
 import TextInput from "../UI/textInput";
+import dashboardStyles from "@/app/styles/dashboard.module.css";
+import DeleteTypeButton from "./types/deleteTypeButton";
 
 const Type = ({
   types,
   setTypes,
+  setMenu,
 }: {
   types: Array<Type>;
   setTypes: (types: Array<Type>) => void;
+  setMenu: (menu: React.ReactNode) => void;
 }) => {
   const cookies = useCookies();
   const params = useSearchParams();
@@ -53,14 +57,17 @@ const Type = ({
             </SolidIcon>
           ) : null}
         </div>
-        <h1 className="text-outline">Type - {type?.name}</h1>
+        <h1 className={dashboardStyles.title}>Type - {type?.name}</h1>
       </div>
       <h2 className="my-3">Style</h2>
       <div className={styles.container}>
         <div className={[styles.selector, styles.iconSelector].join(" ")}>
           {iconList.map((icon, index) => (
             <div
-              className={[styles.item, icon === type?.icon ? styles.active : null].join(" ")}
+              className={[
+                styles.item,
+                icon === type?.icon ? styles.active : null,
+              ].join(" ")}
               key={`icon_${index}`}
               onClick={() => {
                 if (type) {
@@ -87,7 +94,10 @@ const Type = ({
         <div className={[styles.selector, styles.colorSelector].join(" ")}>
           {colorList.map((color, index) => (
             <div
-              className={[styles.item, color === type?.color ? styles.active : null].join(" ")}
+              className={[
+                styles.item,
+                color === type?.color ? styles.active : null,
+              ].join(" ")}
               key={`color_${index}`}
               onClick={() => {
                 if (type) {
@@ -183,26 +193,35 @@ const Type = ({
       </div>
       <div className="flex items-center">
         <label className="mr-3">Rename: </label>
-      <TextInput
-        placeholder="Name"
-        value={type?.name || ""}
-        onChange={(e) => {
-          if (type) {
-            setTypes(
-              types.map((t) => {
-                if (t._id === type._id) {
-                  return {
-                    ...t,
-                    name: e.target.value,
-                  };
-                }
-                return t;
-              })
-            );
-          }
-        }}
-      />
+        <TextInput
+          placeholder="Name"
+          value={type?.name || ""}
+          onChange={(e) => {
+            if (type) {
+              setTypes(
+                types.map((t) => {
+                  if (t._id === type._id) {
+                    return {
+                      ...t,
+                      name: e.target.value,
+                    };
+                  }
+                  return t;
+                })
+              );
+            }
+          }}
+        />
       </div>
+      <h2 className="my-3">Dangererous</h2>
+      {type && (
+        <DeleteTypeButton
+          type={type}
+          setMenu={setMenu}
+          setTypes={setTypes}
+          types={types}
+        />
+      )}
     </>
   );
 };

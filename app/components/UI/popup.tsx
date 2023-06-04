@@ -1,23 +1,26 @@
 import styles from "@/app/styles/components/UI/popup.module.css";
 import Icon from "../icons/icon";
 import Cross from "../icons/paths/cross";
+import ImportantButton from "./buttons/button";
 
 const Popup = ({
-  children,
+  children = null,
   title,
   type = "default",
   setMenu,
   buttonName = "Close",
   then = () => {},
   cross = false,
+  actionBar = null,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   title: string;
   type?: "default" | "error" | "success";
   setMenu: (menu: null | React.ReactNode) => void;
   buttonName?: string;
   then?: () => void;
   cross?: boolean;
+  actionBar?: React.ReactNode;
 }) => {
   return (
     <>
@@ -31,7 +34,7 @@ const Popup = ({
               </Icon>
             </div>
           )}
-          <h1
+          <h2
             className={[styles.title, styles[type], "flex items-center"].join(
               " "
             )}
@@ -51,18 +54,32 @@ const Popup = ({
                 />
               </svg>
             )}
-            {title}
-          </h1>
-          <div className={styles.content}>{children}</div>
-          <button
-            className={[styles.button, styles[type]].join(" ")}
-            onClick={() => {
-              setMenu(null);
-              then();
-            }}
-          >
-            {buttonName}
-          </button>
+            <strong>{title}</strong>
+          </h2>
+          {children && <div className={styles.content}>{children}</div>}
+          <div className={styles.actionBar}>
+            {actionBar ? (
+              actionBar
+            ) : (
+              <ImportantButton
+                onClick={() => setMenu(null)}
+                color="gray"
+                fit={false}
+              >
+                Cancel
+              </ImportantButton>
+            )}
+            <ImportantButton
+              onClick={() => {
+                setMenu(null);
+                then();
+              }}
+              color="white"
+              fit={false}
+            >
+              {buttonName}
+            </ImportantButton>
+          </div>
         </div>
       </div>
     </>

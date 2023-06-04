@@ -3,7 +3,7 @@
 import DashboardMenu from "../components/dashboard/menu";
 import { useSearchParams } from "next/navigation";
 import styles from "../styles/dashboard.module.css";
-import Home from "../components/dashboard/home";
+import Services from "../components/dashboard/services";
 import { useEffect, useState } from "react";
 import request from "../utils/request";
 import { useCookies } from "react-cookie";
@@ -18,7 +18,7 @@ import Logs from "../components/dashboard/logs";
 const Dashboard = () => {
   const cookies = useCookies();
   const params = useSearchParams();
-  const page = params.get("page") || "home";
+  const page = params.get("page") || "logs";
   const [services, setServices] = useState<Array<any>>([]);
   const [users, setUsers] = useState<Array<User>>([]);
   const [permissions, setPermissions] = useState<Array<Permission>>([]);
@@ -53,8 +53,8 @@ const Dashboard = () => {
   return (
     <>
       <div className={styles.container}>
-        {page === "home" ? (
-          <Home
+        {page === "services" ? (
+          <Services
             setMenu={setMenu}
             services={services}
             setServices={setServices}
@@ -66,6 +66,7 @@ const Dashboard = () => {
             services={services}
             setMenu={setMenu}
             permissions={permissions}
+            setServices={setServices}
           />
         ) : null}
         {page === "logs" ? (
@@ -77,7 +78,9 @@ const Dashboard = () => {
         {page === "types" ? (
           <Types setMenu={setMenu} types={types} setTypes={setTypes} />
         ) : null}
-        {page === "type" ? <Type types={types} setTypes={setTypes} /> : null}
+        {page === "type" ? (
+          <Type types={types} setTypes={setTypes} setMenu={setMenu} />
+        ) : null}
         {page === "users" ? (
           <Users
             users={users}
@@ -86,9 +89,11 @@ const Dashboard = () => {
             permissions={permissions}
           />
         ) : null}
-        {page === "user" ? <User users={users} setUsers={setUsers} /> : null}
+        {page === "user" ? (
+          <User users={users} setUsers={setUsers} setMenu={setMenu} />
+        ) : null}
       </div>
-      <DashboardMenu permissions={permissions} />
+      <DashboardMenu permissions={permissions} page={page} />
       {menu}
     </>
   );

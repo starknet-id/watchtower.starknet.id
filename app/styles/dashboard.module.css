@@ -25,3 +25,7 @@
   background-color: var(--background);
   border-radius: 2em;
 }
+
+.title {
+  margin-right: 0.75rem;
+}
