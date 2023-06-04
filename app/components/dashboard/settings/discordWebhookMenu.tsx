@@ -21,9 +21,8 @@ const DiscordWebhookMenu = ({ setMenu }: { setMenu: SetMenu }) => {
       buttonName={"Change"}
       setMenu={setMenu}
       cross={true}
-    >
-      <TextInput id="webhook" value="" placeholder="webhook url" />
-    </Popup>
+      actionBar={<TextInput id="webhook" placeholder="Discord webhook URL" />}
+    />
   );
 };
 

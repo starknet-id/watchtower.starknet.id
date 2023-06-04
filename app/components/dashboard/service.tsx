@@ -1,18 +1,22 @@
 import { useSearchParams } from "next/navigation";
+import dashboardStyles from "@/app/styles/dashboard.module.css";
 import GenerateTokenButton from "./service/generateTokenButton";
 import Code from "../UI/code";
 import Icon from "../icons/icon";
 import TextDocument from "../icons/paths/textDocument";
 import Link from "next/link";
+import DeleteServiceButton from "./service/deleteServiceButton";
 
 const Service = ({
   services,
   setMenu,
   permissions,
+  setServices,
 }: {
   services: Array<Service>;
   setMenu: SetMenu;
   permissions: Array<string>;
+  setServices: (services: Array<Service>) => void;
 }) => {
   const params = useSearchParams();
   const serviceId = params.get("service_id");
@@ -21,7 +25,9 @@ const Service = ({
   return (
     <>
       <div className="flex items-center">
-        <h1 className="text-outline mr-3">Services - {service?.app_name}</h1>
+        <h1 className={dashboardStyles.title}>
+          Services - {service?.app_name}
+        </h1>
         <Link href={`/dashboard?page=logs&services=${serviceId}`}>
           <button className="button glass flex items-center">
             <Icon>
@@ -68,7 +74,16 @@ const Service = ({
       </Code>
       <div className="mt-2">
         {permissions.find((p) => p === "administrator") && service && (
-          <GenerateTokenButton service={service} setMenu={setMenu} />
+          <>
+            <GenerateTokenButton service={service} setMenu={setMenu} />
+            <br></br>
+            <DeleteServiceButton
+              service={service}
+              services={services}
+              setServices={setServices}
+              setMenu={setMenu}
+            />
+          </>
         )}
       </div>
     </>

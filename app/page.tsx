@@ -7,6 +7,9 @@ import Popup from "@/app/components/UI/popup";
 import request from "./utils/request";
 import ButtonContainer from "./components/UI/buttonContainer";
 import { useCookies } from "react-cookie";
+import TextInput from "./components/UI/textInput";
+import ImportantButton from "./components/UI/buttons/button";
+import ErrorMessage from "./components/UI/messages/errorMessage";
 
 const Home = () => {
   const router = useRouter();
@@ -16,6 +19,7 @@ const Home = () => {
 
   const login = async (e: FormEvent) => {
     e.preventDefault();
+    setMenu(null);
     setLoading(true);
     const target = e.target as typeof e.target & {
       username: { value: string };
@@ -36,16 +40,20 @@ const Home = () => {
       router.push("/dashboard");
     } else
       setMenu(
-        <Popup title="Error" type="error" setMenu={setMenu}>
-          <p>{res.message}</p>
-        </Popup>
+        <div className="my-5">
+          <ErrorMessage>
+            <p>{res.message}</p>
+          </ErrorMessage>
+        </div>
       );
   };
 
   useEffect(() => {
     const token = cookies[0].token;
     if (!token) return;
+    setLoading(true);
     request("/check_auth_token", { token }).then((res) => {
+      setLoading(false);
       if (res.status === "success") router.push("/dashboard");
     });
   }, [cookies]);
@@ -54,33 +62,21 @@ const Home = () => {
     <>
       <div className="flex flex-col items-center justify-center min-h-screen py-2">
         <form className={styles.form} onSubmit={login}>
-          <h2 className="text-light">Sign in</h2>
-          <div className={styles.inputContainer}>
-            <label htmlFor="username">Username</label>
-            <input
-              className="input glass"
-              type="text"
-              name="username"
-              id="username"
-            />
-          </div>
-          <div className={styles.inputContainer}>
-            <label htmlFor="password">Password</label>
-            <input
-              className="input glass"
-              type="password"
-              name="password"
-              id="password"
-            />
-          </div>
+          <center>
+            <strong>
+              <h1>Sign in</h1>
+            </strong>
+          </center>
+          {menu}
+          <TextInput id="username" placeholder="Username" />
+          <TextInput id="password" type="password" placeholder="Password" />
           <ButtonContainer loading={loading}>
-            <button className="button flex" type="submit">
+            <ImportantButton>
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={1.5}
+                strokeWidth={2}
                 stroke="currentColor"
-                className="w-6 h-6 mr-2"
               >
                 <path
                   strokeLinecap="round"
@@ -88,12 +84,11 @@ const Home = () => {
                   d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                 />
               </svg>
-              Login
-            </button>
+              <strong>Login</strong>
+            </ImportantButton>
           </ButtonContainer>
         </form>
       </div>
-      {menu}
     </>
   );
 };

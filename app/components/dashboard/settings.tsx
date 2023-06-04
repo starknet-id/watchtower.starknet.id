@@ -6,6 +6,7 @@ import Chat from "../icons/paths/chat";
 import Mail from "../icons/paths/mail";
 import Hashtag from "../icons/paths/hashtag";
 import DiscordWebhookMenu from "./settings/discordWebhookMenu";
+import dashboardStyles from "@/app/styles/dashboard.module.css";
 
 const Settings = ({
   setMenu,
@@ -16,7 +17,7 @@ const Settings = ({
 }) => {
   return (
     <>
-      <h1 className="text-outline mr-3">Settings</h1>
+      <h1 className={dashboardStyles.title}>Settings</h1>
       <main className={styles.container}>
         <section className={styles.section}>
           <button
