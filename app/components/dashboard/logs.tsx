@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import openContextMenu from "@/app/utils/openContextMenu";
 import LogContextMenu from "./logs/logContextMenu";
 import LogsFilters from "./logs/logsFilters";
+import load from "./logs/load";
 
 const Logs = ({
   services,
@@ -58,34 +59,19 @@ const Logs = ({
   useEffect(() => {
     if (refresh) return setRefresh(false);
     if (!targetServiceIds) return;
-    const load = () =>
-      request("/get_logs", {
-        token: cookies[0].token,
-        target_apps: targetServiceIds.length
-          ? targetServiceIds
-          : services.map((service) => service._id),
-        target_types: targetTypes.length
-          ? targetTypes.map((type) => type.name)
-          : undefined,
-      }).then((res) => {
-        if (res.status === "success") {
-          const services = res.logs;
-          const result = [];
-          // Put all logs in one array
-          const keys = Object.keys(services);
-          for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
-            const service = services[key];
-            result.push(...service);
-          }
-          // Sort logs by timestamp
-          result.sort((a, b) => b.timestamp - a.timestamp);
-          setLogs(result);
-        }
-        if (!loaded) setLoaded(true);
-      });
-    load();
-    const interval = setInterval(load, 1000);
+    const l = () =>
+      load(
+        cookies[0].token,
+        loaded,
+        targetServiceIds,
+        services,
+        targetTypes,
+        types,
+        setLogs,
+        setLoaded
+      );
+    l();
+    const interval = setInterval(l, 1000);
     return () => clearInterval(interval);
   }, [loaded, refresh, targetServiceIds, targetTypes]);
   const getType = (typeName: string) =>

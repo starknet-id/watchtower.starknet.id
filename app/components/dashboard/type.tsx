@@ -12,7 +12,8 @@ import contactList from "@/app/utils/contactList";
 import SelectBox from "../UI/selectBox";
 import TextInput from "../UI/textInput";
 import dashboardStyles from "@/app/styles/dashboard.module.css";
-import DeleteTypeButton from "./types/deleteTypeButton";
+import DeleteTypeButton from "./type/deleteTypeButton";
+import RemoveTypeParentButton from "./type/removeTypeParentButton";
 
 const Type = ({
   types,
@@ -154,6 +155,56 @@ const Type = ({
           <p className="ml-2">{contact}</p>
         </div>
       ))}
+      <h2 className="my-3">Parents</h2>
+      <div className="flex">
+        <label className="mr-3">Add: </label>
+        <SelectBox
+          placeholder="..."
+          options={types
+            .map((t) => {
+              return { name: t.name, value: t._id };
+            })
+            .filter((t) => t.value !== type?._id)}
+          selected={null}
+          setSelected={async (value: string | number) => {
+            const res = await request(`/add_type_parent`, {
+              token: cookies[0].token,
+              type_id: type?._id,
+              parent_id: value,
+            });
+            if (res.status === "success") {
+              if (type) {
+                const newType = {
+                  ...type,
+                  parents: type.parents.concat(value as string),
+                };
+                setTypes(
+                  types.map((t) => {
+                    if (t._id === type?._id) {
+                      return newType;
+                    }
+                    return t;
+                  })
+                );
+              }
+            }
+          }}
+        />
+      </div>
+      {type &&
+        type.parents.map((parentId, index) => (
+          <div className="flex items-center" key={`parent_${index}`}>
+            <RemoveTypeParentButton
+              type={type}
+              types={types}
+              setTypes={setTypes}
+              parentId={parentId}
+            />
+            <p className="ml-2">
+              {types.find((t) => t._id === parentId)?.name}
+            </p>
+          </div>
+        ))}
       <h2 className="my-3">Other</h2>
       <div className="flex">
         <label className="mr-3">Importance: </label>

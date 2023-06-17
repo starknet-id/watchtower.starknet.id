@@ -54,3 +54,13 @@
 .filters .category .item {
   margin: 5px;
 }
+
+.subtypes {
+  display: none;
+  position: absolute;
+  background-color: black;
+}
+
+.typeContainer:hover .subtypes {
+  display: flex;
+}

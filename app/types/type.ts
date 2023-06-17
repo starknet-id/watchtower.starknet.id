@@ -5,4 +5,5 @@ type Type = {
   icon: string;
   importance: number;
   notifications: string[];
+  parents: string[];
 };

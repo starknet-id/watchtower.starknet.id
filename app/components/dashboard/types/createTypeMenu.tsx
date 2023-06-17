@@ -1,7 +1,6 @@
 import request from "@/app/utils/request";
 import Popup from "../../UI/popup";
 import { useCookies } from "react-cookie";
-import styles from "@/app/styles/components/dashboard/users.module.css";
 import TextInput from "../../UI/textInput";
 
 const CreateTypeMenu = ({
@@ -40,6 +39,7 @@ const CreateTypeMenu = ({
                 icon: "default",
                 importance: 0,
                 notifications: [],
+                parents: [],
               },
             ])
         );
