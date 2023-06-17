@@ -78,7 +78,6 @@ const load = (
     }
     resTargetTypeNames.push(res.reverse().join("/"));
   }
-  console.log(resTargetTypeNames);
 
   request("/get_logs", {
     token: token,
