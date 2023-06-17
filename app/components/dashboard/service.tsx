@@ -35,40 +35,20 @@ const Service = ({
         </button>
       </Link>
       <hr className="hr-soft"></hr>
+      <div className="text-xs">
+        <span className="text-blue-500">POST</span>{" "}
+        {process.env.NEXT_PUBLIC_API_URL}/service/add_message
+      </div>
       <Code>
-        <div className="text-xs">
-          <span className="text-blue-500">POST</span>{" "}
-          {process.env.NEXT_PUBLIC_API_URL}/service/add_message
-        </div>
-        {"{"}
-        <div>
-          <span className="text-blue-500">{"\t"}&quot;token&quot;</span>:{" "}
-          <span className="text-green-500">&quot;your_token&quot;</span>,
-        </div>
-        <div>
-          <span className="text-blue-500">{"\t"}&quot;log&quot;</span>: {"{"}
-          <div>
-            <span className="text-blue-500">{"\t\t"}&quot;app_id&quot;</span>:{" "}
-            <span className="text-green-500">&quot;{serviceId}&quot;</span>,
-          </div>
-          <div>
-            <span className="text-blue-500">{"\t\t"}&quot;type&quot;</span>:{" "}
-            <span className="text-green-500">&quot;default&quot;</span>,
-          </div>
-          <div>
-            <span className="text-blue-500">{"\t\t"}&quot;message&quot;</span>:{" "}
-            <span className="text-green-500">
-              &quot;This is a test message.&quot;
-            </span>
-            ,
-          </div>
-          <div>
-            <span className="text-blue-500">{"\t\t"}&quot;timestamp&quot;</span>
-            : <span className="text-green-500">&quot;1685805954515&quot;</span>
-          </div>
-          {"\t}"}
-        </div>
-        {"}"}
+        {`{
+  "token": "your_token",
+  "log": {
+    "app_id": "${serviceId}",
+    "type": "default",
+    "message": "This is a test message.",
+    "timestamp": "1685805954515"
+    }
+}`}
       </Code>
       <div className="mt-2">
         {permissions.find((p) => p === "administrator") && service && (
