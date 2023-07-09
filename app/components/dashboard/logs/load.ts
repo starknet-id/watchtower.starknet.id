@@ -15,8 +15,14 @@ const load = (
   const loadWholeTargetTypesTree = () => {
     // Find all child types of target types
     for (let index = 0; index < wholeTargetTypesTree.length; index++) {
-      let found = false;
       const targetType = wholeTargetTypesTree[index];
+      let valid = !targetType.parents.length;
+      // Check that type doesn't have any parents or that one of its parents is in the target types array
+      for (let index2 = 0; index2 < targetType.parents.length; index2++) {
+        const parent = targetType.parents[index2];
+        if (targetTypes.find((type) => type._id === parent)) valid = true;
+      }
+      let found = false;
       const childTypes = types.filter(
         (type) => type.parents.indexOf(targetType._id) !== -1
       );
@@ -46,11 +52,13 @@ const load = (
     const leaf = leaves[index];
     let paths: string[] = [leaf._id];
     let result = "";
+    let teeest = 0;
     while (!result) {
+      teeest++;
       for (let index = 0; index < paths.length; index++) {
         const path = paths[index];
         const currentElementId = path.split("/").pop();
-        const currentElement = wholeTargetTypesTree.find(
+        const currentElement = types.find(
           (type) => type._id === currentElementId
         );
         if (currentElement) {
