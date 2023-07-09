@@ -38,14 +38,14 @@ const Home = () => {
         maxAge: 60 * 60 * 24 * 25, // 25 days
       });
       router.push("/dashboard");
-    } else
-      setMenu(
-        <div className="my-5">
-          <ErrorMessage>
-            <p>{res.message}</p>
-          </ErrorMessage>
-        </div>
-      );
+    } else console.log(res);
+    setMenu(
+      <div className="my-5">
+        <ErrorMessage>
+          <p>{res.message || "Server unavailable"}</p>
+        </ErrorMessage>
+      </div>
+    );
   };
 
   useEffect(() => {
