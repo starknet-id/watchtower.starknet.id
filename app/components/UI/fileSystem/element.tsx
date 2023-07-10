@@ -7,7 +7,7 @@ const Element = ({
   name,
   icon = "",
   color = "",
-  children = [],
+  childrenElements = [],
   sortFunction = () => 0,
 }: {
   type: "folder" | "file";
@@ -15,14 +15,14 @@ const Element = ({
   name: string;
   icon?: string;
   color?: string;
-  children?: FileSystemElement[];
+  childrenElements?: FileSystemElement[];
   sortFunction?: (a: FileSystemElement, b: FileSystemElement) => number;
 }) => {
   return type === "folder" ? (
     <FolderElement
       name={name}
       sortFunction={sortFunction}
-      children={children}
+      childrenElements={childrenElements}
     />
   ) : (
     <FileElement id={id} name={name} color={color} icon={icon} />

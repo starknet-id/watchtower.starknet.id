@@ -5,11 +5,11 @@ import Element from "./element";
 
 const FolderElement = ({
   name,
-  children,
+  childrenElements,
   sortFunction,
 }: {
   name: string;
-  children: FileSystemElement[];
+  childrenElements: FileSystemElement[];
   sortFunction: (a: FileSystemElement, b: FileSystemElement) => number;
 }) => {
   return (
@@ -21,7 +21,7 @@ const FolderElement = ({
       </SolidIcon>
       <p>{name}</p>
       <div className={styles.subElements}>
-        {children.sort(sortFunction).map((element, index) => (
+        {childrenElements.sort(sortFunction).map((element, index) => (
           <Element
             id={element.id}
             type={element.type}
@@ -29,7 +29,7 @@ const FolderElement = ({
             name={element.name}
             icon={element.icon}
             color={element.color}
-            children={element.children}
+            childrenElements={element.children}
             sortFunction={sortFunction}
           />
         ))}

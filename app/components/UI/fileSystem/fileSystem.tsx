@@ -23,7 +23,7 @@ const FileSystem = ({ tree }: { tree: FileSystemElement[] }) => {
           name={element.name}
           icon={element.icon}
           color={element.color}
-          children={element.children}
+          childrenElements={element.children}
           sortFunction={sortFunction}
         />
       ))}
