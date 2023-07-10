@@ -23,3 +23,7 @@
   padding: 25px;
   margin: -25px;
 }
+
+.elementContainer:hover {
+  text-decoration: underline;
+}
