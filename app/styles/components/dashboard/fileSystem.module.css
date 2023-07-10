@@ -1,0 +1,25 @@
+.elementContainer {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  cursor: pointer;
+  position: relative;
+  width: fit-content;
+}
+
+.elementContainer svg {
+  margin-right: 10px;
+}
+
+.subElements {
+  display: none;
+}
+
+.elementContainer:hover > .subElements {
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: calc(100% + 10px);
+  padding: 25px;
+  margin: -25px;
+}

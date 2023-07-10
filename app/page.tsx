@@ -3,7 +3,6 @@
 import styles from "@/app/styles/login.module.css";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Popup from "@/app/components/UI/popup";
 import request from "./utils/request";
 import ButtonContainer from "./components/UI/buttonContainer";
 import { useCookies } from "react-cookie";

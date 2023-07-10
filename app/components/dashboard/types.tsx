@@ -7,6 +7,7 @@ import SolidIcon from "../icons/solidIcon";
 import TextDocument from "../icons/paths/textDocument";
 import { useRouter } from "next/navigation";
 import dashboardStyles from "@/app/styles/dashboard.module.css";
+import TypeSystem from "../UI/fileSystem/typeSystem";
 
 const Types = ({
   setMenu,
@@ -40,36 +41,7 @@ const Types = ({
         <p>Create a new type</p>
       </button>
       <section className={styles.container}>
-        <div className={[styles.typeContainer, styles.disabled].join(" ")}>
-          <SolidIcon>
-            <TextDocument />
-          </SolidIcon>
-          <p>default</p>
-        </div>
-        <hr></hr>
-        {types.map((type) => (
-          <div key={`type_${type._id}`}>
-            <div
-              className={styles.typeContainer}
-              onClick={() =>
-                router.push(`/dashboard?page=type&type_id=${type._id}`)
-              }
-            >
-              <div
-                style={{
-                  color: type?.color,
-                }}
-              >
-                {" "}
-                <SolidIcon>
-                  <IconRouter name={type.icon} />
-                </SolidIcon>
-              </div>
-              <p>{type.name}</p>
-            </div>
-            <hr></hr>
-          </div>
-        ))}
+        <TypeSystem types={types} />
       </section>
     </div>
   );
