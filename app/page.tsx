@@ -3,7 +3,6 @@
 import styles from "@/app/styles/login.module.css";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Popup from "@/app/components/UI/popup";
 import request from "./utils/request";
 import ButtonContainer from "./components/UI/buttonContainer";
 import { useCookies } from "react-cookie";
@@ -38,14 +37,14 @@ const Home = () => {
         maxAge: 60 * 60 * 24 * 25, // 25 days
       });
       router.push("/dashboard");
-    } else
-      setMenu(
-        <div className="my-5">
-          <ErrorMessage>
-            <p>{res.message}</p>
-          </ErrorMessage>
-        </div>
-      );
+    } else console.log(res);
+    setMenu(
+      <div className="my-5">
+        <ErrorMessage>
+          <p>{res.message || "Server unavailable"}</p>
+        </ErrorMessage>
+      </div>
+    );
   };
 
   useEffect(() => {
