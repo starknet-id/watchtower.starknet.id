@@ -2,12 +2,9 @@ import Icon from "../icons/icon";
 import Plus from "../icons/paths/plus";
 import CreateTypeMenu from "./types/createTypeMenu";
 import styles from "@/app/styles/components/dashboard/types.module.css";
-import IconRouter from "../icons/iconRouter";
-import SolidIcon from "../icons/solidIcon";
-import TextDocument from "../icons/paths/textDocument";
-import { useRouter } from "next/navigation";
 import dashboardStyles from "@/app/styles/dashboard.module.css";
 import TypeSystem from "../UI/fileSystem/typeSystem";
+import { useRouter } from "next/navigation";
 
 const Types = ({
   setMenu,
@@ -19,7 +16,6 @@ const Types = ({
   setTypes: (types: Array<Type>) => void;
 }) => {
   const router = useRouter();
-
   return (
     <div>
       <h1 className={dashboardStyles.title}>Types</h1>
@@ -41,7 +37,12 @@ const Types = ({
         <p>Create a new type</p>
       </button>
       <section className={styles.container}>
-        <TypeSystem types={types} />
+        <TypeSystem
+          onSelected={(element) =>
+            router.push(`/dashboard?page=type&type_id=${element.id}`)
+          }
+          types={types}
+        />
       </section>
     </div>
   );

@@ -1,31 +1,29 @@
-import FileElement from "./file";
-import FolderElement from "./folder";
-
 const Element = ({
-  type,
-  id,
-  name,
-  icon = "",
-  color = "",
-  childrenElements = [],
+  onSelected,
+  element,
   sortFunction = () => 0,
+  FileElement,
+  FolderElement,
 }: {
-  type: "folder" | "file";
-  id: string;
-  name: string;
-  icon?: string;
-  color?: string;
-  childrenElements?: FileSystemElement[];
+  onSelected: (type: FileSystemElement) => void;
+  element: FileSystemElement;
   sortFunction?: (a: FileSystemElement, b: FileSystemElement) => number;
+  FileElement: (props: any) => React.ReactNode;
+  FolderElement: (props: any) => React.ReactNode;
 }) => {
-  return type === "folder" ? (
-    <FolderElement
-      name={name}
-      sortFunction={sortFunction}
-      childrenElements={childrenElements}
-    />
-  ) : (
-    <FileElement id={id} name={name} color={color} icon={icon} />
+  return (
+    <>
+      {element.type === "folder"
+        ? FolderElement &&
+          FolderElement({
+            element,
+            onSelected,
+            sortFunction,
+            FileElement,
+            FolderElement,
+          })
+        : FileElement && FileElement({ element, onSelected })}
+    </>
   );
 };
 
