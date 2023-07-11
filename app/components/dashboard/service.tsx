@@ -46,7 +46,7 @@ const Service = ({
     "app_id": "${serviceId}",
     "type": "default",
     "message": "This is a test message.",
-    "timestamp": "1685805954515"
+    "timestamp": 1685805954515
     }
 }`}
       </Code>
