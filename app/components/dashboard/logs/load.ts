@@ -16,12 +16,6 @@ const load = (
     // Find all child types of target types
     for (let index = 0; index < wholeTargetTypesTree.length; index++) {
       const targetType = wholeTargetTypesTree[index];
-      let valid = !targetType.parents.length;
-      // Check that type doesn't have any parents or that one of its parents is in the target types array
-      for (let index2 = 0; index2 < targetType.parents.length; index2++) {
-        const parent = targetType.parents[index2];
-        if (targetTypes.find((type) => type._id === parent)) valid = true;
-      }
       let found = false;
       const childTypes = types.filter(
         (type) => type.parents.indexOf(targetType._id) !== -1
@@ -38,62 +32,15 @@ const load = (
   };
   loadWholeTargetTypesTree();
 
-  let leaves: Type[] = [];
-  // Find leaves of the tree (types without children)
-  for (let index = 0; index < wholeTargetTypesTree.length; index++) {
-    const type = wholeTargetTypesTree[index];
-    const childTypes = types.filter((t) => t.parents.indexOf(type._id) !== -1);
-    if (childTypes.length === 0) leaves.push(type);
-  }
-
-  let resTargetTypeNames: string[] = [];
-  // Generate paths for each leaf
-  for (let index = 0; index < leaves.length; index++) {
-    const leaf = leaves[index];
-    let paths: string[] = [leaf._id];
-    let result = "";
-    let teeest = 0;
-    while (!result) {
-      teeest++;
-      for (let index = 0; index < paths.length; index++) {
-        const path = paths[index];
-        const currentElementId = path.split("/").pop();
-        const currentElement = types.find(
-          (type) => type._id === currentElementId
-        );
-        if (currentElement) {
-          const parents = currentElement.parents;
-          for (let index = 0; index < parents.length; index++) {
-            const parent = parents[index];
-            paths.push(path + "/" + parent);
-          }
-          if (parents.length === 0) result = path;
-        }
-        paths.splice(index, 1);
-        index--;
-      }
-    }
-    const path = result.split("/");
-    let res = [];
-    for (let index = 0; index < path.length; index++) {
-      const elementId = path[index];
-      const element = wholeTargetTypesTree.find(
-        (type) => type._id === elementId
-      );
-      if (element) {
-        res.push(element.name);
-      }
-    }
-    resTargetTypeNames.push(res.reverse().join("/"));
-  }
-
   request("/get_logs", {
     token: token,
     target_apps: targetServiceIds.length
       ? targetServiceIds
       : services.map((service) => service._id),
     target_types:
-      resTargetTypeNames.length > 0 ? resTargetTypeNames : undefined,
+      wholeTargetTypesTree.length > 0
+        ? wholeTargetTypesTree.map((t) => t.name)
+        : undefined,
   }).then((res) => {
     if (res.status === "success") {
       const services = res.logs;

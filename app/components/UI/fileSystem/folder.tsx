@@ -1,36 +1,42 @@
-import styles from "@/app/styles/components/dashboard/fileSystem.module.css";
+import styles from "@/app/styles/components/UI/fileSystem.module.css";
 import SolidIcon from "../../icons/solidIcon";
 import Folder from "../../icons/paths/folder";
 import Element from "./element";
 
-const FolderElement = ({
-  name,
-  childrenElements,
-  sortFunction,
-}: {
-  name: string;
-  childrenElements: FileSystemElement[];
+export type FolderElementProps = {
+  onSelected: (type: FileSystemElement) => void;
+  element: FileSystemElement;
   sortFunction: (a: FileSystemElement, b: FileSystemElement) => number;
-}) => {
+  FileElement: (props: any) => React.ReactNode;
+  FolderElement: (props: any) => React.ReactNode;
+};
+
+const FolderElement = ({
+  onSelected,
+  element,
+  sortFunction,
+  FileElement,
+  FolderElement,
+}: FolderElementProps) => {
   return (
     <div
       className={[styles.elementContainer, styles.folderContainer].join(" ")}
     >
-      <SolidIcon>
-        <Folder />
-      </SolidIcon>
-      <p>{name}</p>
+      <div className={styles.folder} onClick={() => onSelected(element)}>
+        <SolidIcon>
+          <Folder />
+        </SolidIcon>
+        <p>{element.name}</p>
+      </div>
       <div className={styles.subElements}>
-        {childrenElements.sort(sortFunction).map((element, index) => (
+        {(element.children || []).sort(sortFunction).map((elt, index) => (
           <Element
-            id={element.id}
-            type={element.type}
             key={element.name + index}
-            name={element.name}
-            icon={element.icon}
-            color={element.color}
-            childrenElements={element.children}
+            element={elt}
+            onSelected={onSelected}
             sortFunction={sortFunction}
+            FileElement={FileElement}
+            FolderElement={FolderElement}
           />
         ))}
       </div>

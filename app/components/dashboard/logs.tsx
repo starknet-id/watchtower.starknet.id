@@ -135,12 +135,14 @@ const Logs = ({
                 openContextMenu(e, setMenu, <LogContextMenu log={log} />)
               }
             >
-              <p className={styles.date}>
-                {new Date(log.timestamp).toLocaleDateString()}
-              </p>
-              <p className={styles.time}>
-                {new Date(log.timestamp).toLocaleTimeString()}
-              </p>
+              <div className={styles.momentContainer}>
+                <p className={styles.date}>
+                  {new Date(log.timestamp).toLocaleDateString()}
+                </p>
+                <p className={styles.time}>
+                  {new Date(log.timestamp).toLocaleTimeString()}
+                </p>
+              </div>
               <span
                 style={{
                   color: getType(log.type_)?.color,

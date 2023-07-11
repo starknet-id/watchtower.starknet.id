@@ -16,6 +16,12 @@
   cursor: pointer;
 }
 
+.line .momentContainer {
+  display: flex;
+  min-width: none;
+  width: 180px;
+}
+
 .line .date {
   width: -moz-fit-content;
   width: fit-content;
@@ -26,7 +32,6 @@
 .line .time {
   width: -moz-fit-content;
   width: fit-content;
-  margin-right: 15px;
   color: rgb(192, 192, 192);
 }
 
@@ -63,4 +68,9 @@
 
 .typeContainer:hover .subtypes {
   display: flex;
+}
+
+.fileSystemElement.underline > div > p,
+.fileSystemElement.underline > div > div > p {
+  text-decoration: underline;
 }

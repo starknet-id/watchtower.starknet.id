@@ -1,6 +1,16 @@
 import Element from "./element";
 
-const FileSystem = ({ tree }: { tree: FileSystemElement[] }) => {
+const FileSystem = ({
+  tree,
+  onSelected,
+  FileElement,
+  FolderElement,
+}: {
+  tree: FileSystemElement[];
+  onSelected: (type: FileSystemElement) => void;
+  FileElement: (props: any) => React.ReactNode;
+  FolderElement: (props: any) => React.ReactNode;
+}) => {
   // sort elements : folders first, then files
   // and then sort by name
   const sortFunction = (a: FileSystemElement, b: FileSystemElement) => {
@@ -17,14 +27,12 @@ const FileSystem = ({ tree }: { tree: FileSystemElement[] }) => {
     <>
       {tree.sort(sortFunction).map((element, index) => (
         <Element
-          id={element.id}
-          type={element.type}
-          key={element.name + index}
-          name={element.name}
-          icon={element.icon}
-          color={element.color}
-          childrenElements={element.children}
+          FileElement={FileElement}
+          FolderElement={FolderElement}
+          element={element}
           sortFunction={sortFunction}
+          onSelected={onSelected}
+          key={element.name + index}
         />
       ))}
     </>

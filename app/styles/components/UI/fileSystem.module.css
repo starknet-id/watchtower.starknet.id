@@ -7,6 +7,11 @@
   width: fit-content;
 }
 
+.folder {
+  display: flex;
+  align-items: center;
+}
+
 .elementContainer svg {
   margin-right: 10px;
 }

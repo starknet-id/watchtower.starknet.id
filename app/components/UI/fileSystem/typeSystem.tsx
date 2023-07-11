@@ -1,7 +1,19 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FileSystem from "./fileSystem";
+import FileElt from "./file";
+import FolderElt from "./folder";
 
-const TypeSystem = ({ types }: { types: Array<Type> }) => {
+const TypeSystem = ({
+  types,
+  onSelected,
+  FileElement = FileElt,
+  FolderElement = FolderElt,
+}: {
+  types: Array<Type>;
+  onSelected: (type: FileSystemElement) => void;
+  FileElement?: (props: any) => React.ReactNode;
+  FolderElement?: (props: any) => React.ReactNode;
+}) => {
   const [tree, setTree] = useState<FileSystemElement[]>([]);
   useEffect(() => {
     // Types names can contain slashes, e.g. "foo/bar". This means that the type is contained in a folder.
@@ -49,8 +61,14 @@ const TypeSystem = ({ types }: { types: Array<Type> }) => {
     };
     setTree(createTree(types));
   }, [types]);
-  console.log(tree);
-  return <FileSystem tree={tree} />;
+  return (
+    <FileSystem
+      FileElement={FileElement}
+      FolderElement={FolderElement}
+      onSelected={onSelected}
+      tree={tree}
+    />
+  );
 };
 
 export default TypeSystem;

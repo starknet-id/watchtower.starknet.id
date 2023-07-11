@@ -1,7 +1,6 @@
 import styles from "@/app/styles/components/dashboard/menu.module.css";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 const DashboardMenu = ({
   permissions,
