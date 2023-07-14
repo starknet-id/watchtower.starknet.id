@@ -25,8 +25,11 @@ const LogsFilters = ({
 
   const setSearchParams = (key: string, value: string) => {
     const params = new URLSearchParams(window.location.search);
+    const id = window.location.hash.split("#")[1];
     params.set(key, value);
-    router.push(`${window.location.pathname}?${params.toString()}`);
+    router.push(
+      `${window.location.pathname}?${params.toString()}${id ? `#${id}` : ""}`
+    );
     setRefresh(true);
   };
 
@@ -39,6 +42,7 @@ const LogsFilters = ({
   };
 
   useEffect(() => {
+    console.log(targetTypes);
     setSearchParams("types", targetTypes.map((type) => type._id).join(","));
   }, [targetTypes]);
 

@@ -43,6 +43,21 @@
   border: 1px solid white;
 }
 
+.deleteLogButton {
+  position: absolute;
+  transform: translateX(calc(-100%)) translateY(-15px);
+  display: none;
+  padding: 15px;
+}
+
+.line:hover .deleteLogButton {
+  display: unset;
+}
+
+.deleteLogButton:hover {
+  color: red;
+}
+
 .filters {
   display: flex;
   flex-direction: column;
