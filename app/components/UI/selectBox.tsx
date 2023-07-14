@@ -1,6 +1,7 @@
 import styles from "@/app/styles/components/UI/selectBox.module.css";
 import { useState } from "react";
 import TextInput from "./textInput";
+import { distance } from "fastest-levenshtein";
 
 const SelectBox = ({
   options,
@@ -18,6 +19,17 @@ const SelectBox = ({
 
   const filteredOptions = options.filter((option) =>
     option.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const sortedOptions = options.sort((a, b) => {
+    const aDistance = distance(a.name.toLowerCase(), search.toLowerCase());
+    const bDistance = distance(b.name.toLowerCase(), search.toLowerCase());
+    return aDistance - bDistance;
+  });
+
+  const optionsRes = [...filteredOptions, ...sortedOptions].filter(
+    (option, index, self) =>
+      self.findIndex((o) => o.value === option.value) === index
   );
 
   return (
@@ -40,7 +52,7 @@ const SelectBox = ({
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search"
           />
-          {filteredOptions.map((option) => (
+          {optionsRes.map((option) => (
             <div
               className={styles.option}
               key={option.value}

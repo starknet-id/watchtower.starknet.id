@@ -66,8 +66,6 @@ const FileSystem = ({
           <SelectBox
             placeholder="Types"
             setSelected={(value: string | number) => {
-              console.log(sortedFiles);
-              console.log(sortedFiles[value as number]);
               onSelected(sortedFiles[value as number]);
             }}
             options={sortedFiles.map((element, index) => {
