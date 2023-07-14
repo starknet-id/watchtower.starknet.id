@@ -106,11 +106,11 @@ const Logs = ({
         {logs.map((log, index) => (
           <div key={`log_${index}`}>
             {multipleServices && logs[index - 1]?.app_id !== log.app_id && (
-              <div className="mt-4">
-                <h3 className={styles.appName}>
+              <div className={styles.logHrContainer}>
+                <h3 className={styles.logHrName}>
                   {getApp(log.app_id)?.app_name}
                 </h3>
-                <hr className="hr-soft" />
+                <hr className={[styles.logHr, "hr-soft"].join(" ")} />
               </div>
             )}
             <div
