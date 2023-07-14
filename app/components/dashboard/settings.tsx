@@ -20,9 +20,12 @@ const Settings = ({
       <h1 className={dashboardStyles.title}>Settings</h1>
       <hr className="hr-soft"></hr>
       <main className={styles.container}>
+        <h2 className="text-outline">Local</h2>
         <section className={styles.section}>
           <button
-            className="button glass flex items-center"
+            className={[styles.element, "button glass flex items-center"].join(
+              " "
+            )}
             onClick={() => setMenu(<ResetPasswordMenu setMenu={setMenu} />)}
           >
             <Icon>
@@ -30,19 +33,10 @@ const Settings = ({
             </Icon>
             <p className="ml-1">Change password</p>
           </button>
-        </section>
-        <section className={[styles.section, styles.line].join(" ")}>
           <button
-            className="button glass flex items-center"
-            onClick={() => alert("Not implemented yet")}
-          >
-            <Icon>
-              <Chat />
-            </Icon>
-            <p className="ml-1">Connect Telegram</p>
-          </button>
-          <button
-            className="button glass flex items-center"
+            className={[styles.element, "button glass flex items-center"].join(
+              " "
+            )}
             onClick={() => alert("Not implemented yet")}
           >
             <Icon>
@@ -52,22 +46,33 @@ const Settings = ({
           </button>
         </section>
         {permissions.includes("administrator") && (
-          <>
-            <h2 className="text-outline">Admin</h2>
-            <section className={styles.section}>
-              <button
-                className="button glass flex items-center"
-                onClick={() =>
-                  setMenu(<DiscordWebhookMenu setMenu={setMenu} />)
-                }
-              >
-                <Icon>
-                  <Hashtag />
-                </Icon>
-                <p className="ml-1">Set Discord Webhook</p>
-              </button>
-            </section>
-          </>
+          <section className={styles.section}>
+            <h2 className="text-outline">Global</h2>
+            <button
+              className={[
+                styles.element,
+                "button glass flex items-center",
+              ].join(" ")}
+              onClick={() => setMenu(<DiscordWebhookMenu setMenu={setMenu} />)}
+            >
+              <Icon>
+                <Hashtag />
+              </Icon>
+              <p className="ml-1">Set Discord Webhook</p>
+            </button>
+            <button
+              className={[
+                styles.element,
+                "button glass flex items-center",
+              ].join(" ")}
+              onClick={() => alert("Not implemented yet")}
+            >
+              <Icon>
+                <Chat />
+              </Icon>
+              <p className="ml-1">Set Telegram channel</p>
+            </button>
+          </section>
         )}
       </main>
     </div>
