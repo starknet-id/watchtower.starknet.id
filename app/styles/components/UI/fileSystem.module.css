@@ -1,3 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container.inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .elementContainer {
   display: flex;
   align-items: center;
@@ -7,13 +17,17 @@
   width: fit-content;
 }
 
+.container.inline .elementContainer {
+  margin: 5px 10px;
+}
+
 .folder {
   display: flex;
   align-items: center;
 }
 
 .elementContainer svg {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .subElements {
@@ -25,10 +39,32 @@
   position: absolute;
   top: -5px;
   left: calc(100% + 10px);
-  padding: 25px;
+  padding: 10px;
   margin: -25px;
+  z-index: 100;
+  background-color: var(--background);
+  border: 1px solid var(--menu-border);
+  border-radius: var(--menu-border-radius);
+}
+
+.container.inline > div > .elementContainer:hover > .subElements {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: calc(50%);
+  transform: translateX(-50%);
+  padding: 10px;
+  margin: -25px 0;
+  z-index: 100;
+  background-color: var(--background);
+  border: 1px solid var(--menu-border);
+  border-radius: var(--menu-border-radius);
 }
 
 .elementContainer:hover {
   text-decoration: underline;
+}
+
+.search {
+  margin-top: 20px;
 }

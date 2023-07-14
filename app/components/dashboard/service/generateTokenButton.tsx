@@ -31,17 +31,13 @@ const GenerateTokenButton = ({
                       then={() => setMenu(null)}
                       setMenu={setMenu}
                       type="success"
+                      actionBar={<CopyButton text={res.token} />}
                     >
                       <p>
                         Successfully generated new token for{" "}
                         <strong>{service.app_name}</strong>
                       </p>
-                      <div className="flex gap-2">
-                        <p className="break-all">{res.token}</p>
-                        <div className="w-fit">
-                          <CopyButton text={res.token} />
-                        </div>
-                      </div>
+                      <p className="break-all">{res.token}</p>
                     </Popup>
                   )
               )

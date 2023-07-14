@@ -4,12 +4,12 @@ import TextInput from "./textInput";
 
 const SelectBox = ({
   options,
-  selected,
+  selected = null,
   setSelected,
   placeholder,
 }: {
   options: Array<{ name: string; value: string | number }>;
-  selected: number | string | null;
+  selected?: number | string | null;
   setSelected: (value: string | number) => void;
   placeholder: string;
 }) => {
