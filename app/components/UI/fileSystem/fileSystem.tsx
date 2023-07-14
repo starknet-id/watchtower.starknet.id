@@ -33,6 +33,20 @@ const FileSystem = ({
 
   const sorted = tree.sort(sortFunction);
 
+  const getFiles = (tree: FileSystemElement[]): FileSystemElement[] => {
+    const files: FileSystemElement[] = [];
+    tree.forEach((element) => {
+      if (element.type === "file") {
+        files.push(element);
+      } else {
+        files.push(...getFiles(element.children || []));
+      }
+    });
+    return files;
+  };
+
+  const sortedFiles = getFiles(tree).sort(sortFunction);
+
   return (
     <>
       <div className={[styles.container, inline && styles.inline].join(" ")}>
@@ -51,10 +65,12 @@ const FileSystem = ({
         <div className={styles.search}>
           <SelectBox
             placeholder="Types"
-            setSelected={(value: string | number) =>
-              onSelected(tree[value as number])
-            }
-            options={sorted.map((element, index) => {
+            setSelected={(value: string | number) => {
+              console.log(sortedFiles);
+              console.log(sortedFiles[value as number]);
+              onSelected(sortedFiles[value as number]);
+            }}
+            options={sortedFiles.map((element, index) => {
               return {
                 value: index,
                 name: element.path || "",
