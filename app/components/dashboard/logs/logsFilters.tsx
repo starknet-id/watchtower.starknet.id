@@ -4,6 +4,7 @@ import CheckboxItem from "../../UI/checkboxItem";
 import TypeSystem from "../../UI/fileSystem/typeSystem";
 import FileElement, { FileElementProps } from "../../UI/fileSystem/file";
 import FolderElement, { FolderElementProps } from "../../UI/fileSystem/folder";
+import { useEffect } from "react";
 
 const LogsFilters = ({
   services,
@@ -37,6 +38,23 @@ const LogsFilters = ({
     return true;
   };
 
+  useEffect(() => {
+    setSearchParams("types", targetTypes.map((type) => type._id).join(","));
+  }, [targetTypes]);
+
+  const getAllChildren = (element: FileSystemElement) => {
+    // Get all folder children recursively
+    const result: Array<FileSystemElement> = [];
+    if (element.type === "folder") {
+      const children = element.children || [];
+      children.forEach((child) => {
+        result.push(child);
+        result.push(...getAllChildren(child));
+      });
+    }
+    return result;
+  };
+
   return (
     <div className={styles.filters}>
       <div className={styles.category}>
@@ -67,17 +85,50 @@ const LogsFilters = ({
           inline
           filter={fileFilter}
           onSelected={(element) => {
-            const type = types.find((t) => t._id === element.id);
-            const index = targetTypes.findIndex((t) => t._id === element.id);
-            if (index === -1 && type) {
-              targetTypes.push(type);
-            } else {
-              targetTypes.splice(index, 1);
+            const setType = (type: Type) => {
+              const index = targetTypes.findIndex((t) => t._id === element.id);
+              if (index === -1 && type) {
+                setTargetTypes([...targetTypes, type]);
+              } else {
+                const newTargetTypes = [...targetTypes];
+                newTargetTypes.splice(index, 1);
+                setTargetTypes(newTargetTypes);
+              }
+            };
+            if (element.type === "file") {
+              const type = types.find((t) => t._id === element.id);
+              if (type) setType(type);
             }
-            setSearchParams(
-              "types",
-              targetTypes.map((type) => type._id).join(",")
-            );
+            if (element.type === "folder") {
+              const children = getAllChildren(element);
+              // Check if any children are in targetTypes
+              const childrenInTargetTypes = children.some((child) => {
+                const type = types.find((t) => t._id === child.id);
+                return type && targetTypes.includes(type);
+              });
+              if (childrenInTargetTypes) {
+                // Remove all children from targetTypes
+                const newTargetTypes = [...targetTypes];
+                children.forEach((child) => {
+                  const type = types.find((t) => t._id === child.id);
+                  if (type) {
+                    const index = newTargetTypes.findIndex(
+                      (t) => t._id === child.id
+                    );
+                    newTargetTypes.splice(index, 1);
+                  }
+                });
+                setTargetTypes(newTargetTypes);
+              } else {
+                // Add all children to targetTypes
+                const newTargetTypes = [...targetTypes];
+                children.forEach((child) => {
+                  const type = types.find((t) => t._id === child.id);
+                  if (type) newTargetTypes.push(type);
+                });
+                setTargetTypes(newTargetTypes);
+              }
+            }
           }}
           types={types}
           FileElement={(props: FileElementProps) => {
@@ -98,8 +149,11 @@ const LogsFilters = ({
               <div
                 className={[
                   styles.fileSystemElement,
-                  targetTypes.find((t) => t._id === props.element.id) &&
-                    styles.underline,
+                  // Check if any children are in targetTypes
+                  getAllChildren(props.element).some((child) => {
+                    const type = types.find((t) => t._id === child.id);
+                    return type && targetTypes.includes(type);
+                  }) && styles.underline,
                 ].join(" ")}
               >
                 {FolderElement(props)}
