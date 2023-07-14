@@ -8,11 +8,17 @@ const TypeSystem = ({
   onSelected,
   FileElement = FileElt,
   FolderElement = FolderElt,
+  inline = false,
+  minimiseFiles = false,
+  filter,
 }: {
   types: Array<Type>;
   onSelected: (type: FileSystemElement) => void;
   FileElement?: (props: any) => React.ReactNode;
   FolderElement?: (props: any) => React.ReactNode;
+  inline?: boolean;
+  minimiseFiles?: boolean;
+  filter?: (element: FileSystemElement) => boolean;
 }) => {
   const [tree, setTree] = useState<FileSystemElement[]>([]);
   useEffect(() => {
@@ -51,6 +57,7 @@ const TypeSystem = ({
               children: [],
               icon: index === typeParts.length - 1 ? type.icon : "",
               color: index === typeParts.length - 1 ? type.color : "",
+              path: type.name,
             };
             currentFolder.push(newFolder);
             currentFolder = newFolder.children || [];
@@ -67,6 +74,9 @@ const TypeSystem = ({
       FolderElement={FolderElement}
       onSelected={onSelected}
       tree={tree}
+      inline={inline}
+      minimiseFiles={minimiseFiles}
+      filter={filter}
     />
   );
 };

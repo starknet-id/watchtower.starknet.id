@@ -29,6 +29,14 @@ const LogsFilters = ({
     setRefresh(true);
   };
 
+  const fileFilter = (file: FileSystemElement) => {
+    // Only show files that are in targetTypes
+    if (file.type === "folder") return true;
+    const type = types.find((t) => t._id === file.id);
+    if (type && !targetTypes.includes(type)) return false;
+    return true;
+  };
+
   return (
     <div className={styles.filters}>
       <div className={styles.category}>
@@ -55,6 +63,9 @@ const LogsFilters = ({
       </div>
       <section className={styles.container}>
         <TypeSystem
+          minimiseFiles
+          inline
+          filter={fileFilter}
           onSelected={(element) => {
             const type = types.find((t) => t._id === element.id);
             const index = targetTypes.findIndex((t) => t._id === element.id);

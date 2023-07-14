@@ -5,4 +5,5 @@ type FileSystemElement = {
   children?: FileSystemElement[];
   icon?: string;
   color?: string;
+  path?: string;
 };
