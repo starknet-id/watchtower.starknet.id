@@ -110,7 +110,6 @@ const Logs = ({
                 <h3 className={styles.logHrName}>
                   {getApp(log.app_id)?.app_name}
                 </h3>
-                <hr className={[styles.logHr, "hr-soft"].join(" ")} />
               </div>
             )}
             <div
