@@ -88,6 +88,13 @@ const Logs = ({
   const getApp = (id: string) =>
     services.find((app) => app._id === id) || { app_name: "Unknown" };
 
+  const getBorderRadiusStyle = (index: number, multiplier: number) => {
+    return !logs[index + 1 * multiplier] ||
+      !getType(logs[index + 1 * multiplier].type_)?.importance
+      ? "15px"
+      : "";
+  };
+
   return (
     <div className={styles.mainContainer}>
       <h1 className={dashboardStyles.title}>
@@ -126,6 +133,8 @@ const Logs = ({
                         getType(log.type_)?.color +
                         ` ${getType(log.type_)?.importance || 0}px solid`,
                       backgroundColor: getType(log.type_)?.color + "10",
+                      borderBottomRightRadius: getBorderRadiusStyle(index, 1),
+                      borderTopRightRadius: getBorderRadiusStyle(index, -1),
                     }
                   : {
                       borderLeft: "none",
