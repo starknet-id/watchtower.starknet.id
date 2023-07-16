@@ -116,6 +116,13 @@ const Logs = ({
               <div className={styles.logHrContainer}>
                 <h3 className={styles.logHrName}>
                   {getApp(log.app_id)?.app_name}
+                  <div
+                    style={{
+                      height: (getType(log.type_)?.importance || 0) + "px",
+                      backgroundColor: getType(log.type_)?.color,
+                    }}
+                    className={styles.logHr}
+                  />
                 </h3>
               </div>
             )}
