@@ -158,6 +158,7 @@ const Logs = ({
                     <Popup
                       setMenu={setMenu}
                       title="Delete log"
+                      buttonName="Delete"
                       then={() => {
                         request(
                           `/delete_log`,
@@ -166,7 +167,6 @@ const Logs = ({
                             method: "DELETE",
                           }
                         ).then((res) => {
-                          console.log(res);
                           setMenu(null);
                           setRefresh(true);
                         });
