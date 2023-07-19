@@ -1,11 +1,9 @@
 import request from "@/app/utils/request";
 import Popup from "../../UI/popup";
 import { useCookies } from "react-cookie";
-import { useRouter } from "next/navigation";
 import TextInput from "../../UI/textInput";
 
 const DiscordWebhookMenu = ({ setMenu }: { setMenu: SetMenu }) => {
-  const router = useRouter();
   const cookies = useCookies();
 
   return (
