@@ -7,6 +7,7 @@ import Mail from "../icons/paths/mail";
 import Hashtag from "../icons/paths/hashtag";
 import DiscordWebhookMenu from "./settings/discordWebhookMenu";
 import dashboardStyles from "@/app/styles/dashboard.module.css";
+import TelegramConnectMenu from "./settings/telegramConnectMenu";
 
 const Settings = ({
   setMenu,
@@ -65,7 +66,7 @@ const Settings = ({
                 styles.element,
                 "button glass flex items-center",
               ].join(" ")}
-              onClick={() => alert("Not implemented yet")}
+              onClick={() => setMenu(<TelegramConnectMenu setMenu={setMenu} />)}
             >
               <Icon>
                 <Chat />
