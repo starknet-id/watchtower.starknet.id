@@ -36,8 +36,8 @@ const Logs = ({
   const [pageId, setPageId] = useState(0);
   const [nextElements, setNextElements] = useState<number>(0);
   const multipleServices = targetServices.length > 1 || !targetServiceIds[0];
-  const pageAmount = 10;
-  const pageSize = 20;
+  const pageAmount = 8;
+  const pageSize = 100;
   const lineHeight = 24;
 
   useEffect(() => {
