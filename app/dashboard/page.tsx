@@ -14,6 +14,7 @@ import Types from "../components/dashboard/types";
 import User from "../components/dashboard/user";
 import Type from "../components/dashboard/type";
 import Logs from "../components/dashboard/logs";
+import Databases from "../components/dashboard/dbs";
 
 const Dashboard = () => {
   const cookies = useCookies();
@@ -23,6 +24,7 @@ const Dashboard = () => {
   const [users, setUsers] = useState<Array<User>>([]);
   const [permissions, setPermissions] = useState<Array<Permission>>([]);
   const [types, setTypes] = useState<Array<Type>>([]);
+  const [databases, setDatabases] = useState<Array<Database>>([]);
   const [menu, setMenu] = useState<Menu>(null);
 
   const token = cookies[0].token;
@@ -48,6 +50,12 @@ const Dashboard = () => {
         setTypes(res.types);
       }
     });
+    request("/get_dbs", { token: token }).then((res) => {
+      if (res.status === "success") {
+        console.log(res);
+        setDatabases(res.databases);
+      }
+    });
   }, [token]);
 
   return (
@@ -67,6 +75,14 @@ const Dashboard = () => {
             setMenu={setMenu}
             permissions={permissions}
             setServices={setServices}
+          />
+        ) : null}
+        {page === "db" ? (
+          <Databases
+            databases={databases}
+            setMenu={setMenu}
+            permissions={permissions}
+            setDatabases={setDatabases}
           />
         ) : null}
         {page === "logs" ? (

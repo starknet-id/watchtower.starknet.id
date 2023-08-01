@@ -55,7 +55,7 @@ const Home = () => {
       setLoading(false);
       if (res.status === "success") router.push("/dashboard");
     });
-  }, [cookies]);
+  }, []);
 
   return (
     <>

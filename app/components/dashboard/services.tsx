@@ -1,5 +1,4 @@
 import styles from "@/app/styles/components/dashboard/home.module.css";
-import openContextMenu from "@/app/utils/openContextMenu";
 import { useRouter } from "next/navigation";
 import Icon from "../icons/icon";
 import Plus from "../icons/paths/plus";
@@ -57,10 +56,10 @@ const Services = ({
           </button>
         </Link>
       </div>
-      <div className={styles.servicesContainer}>
+      <div className={dashboardStyles.itemsContainer}>
         {services.map((service, index) => (
           <div
-            className={styles.service}
+            className={dashboardStyles.item}
             key={`service_${index}`}
             onClick={() => router.push(getLink(service))}
           >
