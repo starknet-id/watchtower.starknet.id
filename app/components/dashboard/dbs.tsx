@@ -49,7 +49,7 @@ const Databases = ({
           <div
             className={dashboardStyles.item}
             key={`db_${index}`}
-            //onClick={() => router.push(getLink(db))}
+            onClick={() => router.push(getLink(db))}
           >
             <p>{db.name}</p>
           </div>

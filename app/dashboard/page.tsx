@@ -15,6 +15,7 @@ import User from "../components/dashboard/user";
 import Type from "../components/dashboard/type";
 import Logs from "../components/dashboard/logs";
 import Databases from "../components/dashboard/dbs";
+import Database from "../components/dashboard/db";
 
 const Dashboard = () => {
   const cookies = useCookies();
@@ -77,8 +78,16 @@ const Dashboard = () => {
             setServices={setServices}
           />
         ) : null}
-        {page === "db" ? (
+        {page === "dbs" ? (
           <Databases
+            databases={databases}
+            setMenu={setMenu}
+            permissions={permissions}
+            setDatabases={setDatabases}
+          />
+        ) : null}
+        {page === "db" ? (
+          <Database
             databases={databases}
             setMenu={setMenu}
             permissions={permissions}
