@@ -33,7 +33,7 @@ const DashboardMenu = ({
       ),
       administrator: false,
     },
-    db: {
+    dbs: {
       icon: (
         <path
           strokeLinecap="round"

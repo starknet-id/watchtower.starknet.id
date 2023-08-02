@@ -2,7 +2,7 @@ import styles from "@/app/styles/components/dashboard/logs.module.css";
 import dashboardStyles from "@/app/styles/dashboard.module.css";
 import request from "@/app/utils/request";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
 import openContextMenu from "@/app/utils/openContextMenu";
@@ -10,6 +10,7 @@ import LogContextMenu from "./logs/logContextMenu";
 import LogsFilters from "./logs/logsFilters";
 import load from "./logs/load";
 import Popup from "../UI/popup";
+import isElementInViewport from "./logs/isElementInViewport";
 
 const Logs = ({
   services,
@@ -32,7 +33,12 @@ const Logs = ({
     targetServiceIds.includes(service._id)
   );
   const [logId, setLogId] = useState<string>("");
+  const [pageId, setPageId] = useState(0);
+  const [nextElements, setNextElements] = useState<number>(0);
   const multipleServices = targetServices.length > 1 || !targetServiceIds[0];
+  const pageAmount = 8;
+  const pageSize = 100;
+  const lineHeight = 24;
 
   useEffect(() => {
     setLogId(
@@ -69,12 +75,16 @@ const Logs = ({
         targetTypes,
         types,
         setLogs,
-        setLoaded
+        setNextElements,
+        setLoaded,
+        pageId,
+        pageSize,
+        pageAmount
       );
     l();
     const interval = setInterval(l, 1000);
     return () => clearInterval(interval);
-  }, [loaded, refresh, targetServiceIds, targetTypes]);
+  }, [loaded, refresh, targetServiceIds, targetTypes, pageId, pageAmount]);
   const getType = (typeName: string) =>
     types.find((type) => type.name === typeName);
 
@@ -95,6 +105,28 @@ const Logs = ({
       : "";
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (nextElements) {
+        const endElement = document.getElementById(
+          `log_container_${logs.length - pageAmount * 5}`
+        );
+        if (endElement && isElementInViewport(endElement)) {
+          setPageId((pageId) => pageId + 1);
+          clearInterval(interval);
+        }
+      }
+      if (pageId > 0) {
+        const beginingElement = document.getElementById(`log_container_0`);
+        if (beginingElement && isElementInViewport(beginingElement)) {
+          setPageId((pageId) => pageId - 1);
+          clearInterval(interval);
+        }
+      }
+    }, 10);
+    return () => clearInterval(interval);
+  }, [logs, nextElements, pageId]);
+
   return (
     <div className={styles.mainContainer}>
       <h1 className={dashboardStyles.title}>
@@ -109,9 +141,15 @@ const Logs = ({
         targetTypes={targetTypes}
         setTargetTypes={setTargetTypes}
       />
-      <div className={styles.container}>
+      <div
+        style={{
+          marginTop: `${pageId * pageSize * lineHeight}px`,
+        }}
+        id="logsContainer"
+        className={styles.container}
+      >
         {logs.map((log, index) => (
-          <div key={`log_${index}`}>
+          <div key={`log_${index}`} id={`log_container_${index}`}>
             {multipleServices && logs[index - 1]?.app_id !== log.app_id && (
               <div className={styles.logHrContainer}>
                 <h3 className={styles.logHrName}>

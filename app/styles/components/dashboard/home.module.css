@@ -1,38 +1,3 @@
-.servicesContainer {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -10px;
-  min-width: 40vw;
-  max-width: 90vw;
-}
-
-.service {
-  background-color: var(--menu-background);
-  border-radius: var(--menu-border-radius);
-  padding: 5px 10px;
-  border: 1px solid var(--menu-border);
-  cursor: pointer;
-  margin: 10px;
-  text-align: center;
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 350px;
-
-  transition: all 0.2s ease-in-out;
-  position: relative;
-  overflow: hidden;
-}
-
-.service:hover {
-  border: 1px solid var(--foreground);
-}
-
-.service:hover:before {
-  opacity: 1;
-}
-
 .contextMenuActions {
   display: flex;
   flex-direction: column;

@@ -42,7 +42,6 @@ const LogsFilters = ({
   };
 
   useEffect(() => {
-    console.log(targetTypes);
     setSearchParams("types", targetTypes.map((type) => type._id).join(","));
   }, [targetTypes]);
 

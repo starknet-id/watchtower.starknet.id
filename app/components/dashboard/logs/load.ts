@@ -8,7 +8,11 @@ const load = (
   targetTypes: Type[],
   types: Type[],
   setLogs: (logs: Log[]) => void,
-  setLoaded: (loaded: boolean) => void
+  setNextElements: (nextElements: number) => void,
+  setLoaded: (loaded: boolean) => void,
+  pageId: number,
+  pageSize: number,
+  pageAmount: number
 ) => {
   let wholeTargetTypesTree = [...targetTypes];
 
@@ -41,20 +45,14 @@ const load = (
       wholeTargetTypesTree.length > 0
         ? wholeTargetTypesTree.map((t) => t.name)
         : undefined,
+    page_id: pageId,
+    page_size: pageSize,
+    page_amount: pageAmount,
   }).then((res) => {
     if (res.status === "success") {
       const services = res.logs;
-      const result = [];
-      // Put all logs in one array
-      const keys = Object.keys(services);
-      for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        const service = services[key];
-        result.push(...service);
-      }
-      // Sort logs by timestamp
-      result.sort((a, b) => b.timestamp - a.timestamp);
-      setLogs(result);
+      setLogs(services);
+      setNextElements(res.next_elements);
     }
     if (!loaded) setLoaded(true);
   });
