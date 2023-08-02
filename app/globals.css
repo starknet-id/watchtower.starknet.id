@@ -16,6 +16,7 @@
   --danger: rgb(255, 53, 53);
   --success: #0070f3;
   --inactive: #777;
+  --inactive-soft: #d0d0d0;
 }
 
 body {
@@ -41,6 +42,10 @@ hr {
   border: none;
   height: 1px;
   background-color: var(--inactive);
+}
+
+.inactive {
+  color: var(--inactive-soft);
 }
 
 .hr-soft {

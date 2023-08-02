@@ -2,6 +2,10 @@ import request from "@/app/utils/request";
 import Popup from "../../UI/popup";
 import { useCookies } from "react-cookie";
 import TextInput from "../../UI/textInput";
+import loadDbs from "./loadDbs";
+import { useState } from "react";
+import BlackScreen from "../../UI/blackScreen";
+import Loading from "../../UI/loading";
 
 const AddDatabaseMenu = ({
   databases,
@@ -18,6 +22,11 @@ const AddDatabaseMenu = ({
     <Popup
       title="Add database"
       then={() => {
+        setMenu(
+          <BlackScreen>
+            <Loading />
+          </BlackScreen>
+        );
         const name = (document.getElementById("name") as HTMLInputElement)
           ?.value;
         const connectionString = (
@@ -31,18 +40,10 @@ const AddDatabaseMenu = ({
             token: cookies[0].token,
           },
           { method: "POST" }
-        ).then(
-          (res) =>
-            res.status === "success" &&
-            setDatabases([
-              ...databases,
-              {
-                _id: res._id,
-                name: name,
-                connection_string: connectionString,
-              },
-            ])
-        );
+        ).then((res) => {
+          setMenu(null);
+          loadDbs(cookies[0].token, setDatabases);
+        });
       }}
       buttonName={"Create"}
       setMenu={setMenu}

@@ -11,7 +11,7 @@ const Popup = ({
   buttonName = "Close",
   then = () => {},
   cross = false,
-  actionBar = null,
+  actionBar,
 }: {
   children?: React.ReactNode;
   title: string;
@@ -58,7 +58,7 @@ const Popup = ({
           </h2>
           {children && <div className={styles.content}>{children}</div>}
           <div className={styles.actionBar}>
-            {actionBar ? (
+            {actionBar !== undefined ? (
               actionBar
             ) : (
               <ImportantButton

@@ -1,4 +1,4 @@
-import styles from "@/app/styles/components/dashboard/home.module.css";
+import styles from "@/app/styles/components/dashboard/db.module.css";
 import { useRouter } from "next/navigation";
 import Icon from "../icons/icon";
 import Plus from "../icons/paths/plus";
@@ -47,7 +47,11 @@ const Databases = ({
       <div className={dashboardStyles.itemsContainer}>
         {databases.map((db, index) => (
           <div
-            className={dashboardStyles.item}
+            className={[
+              dashboardStyles.item,
+              styles.dbElement,
+              styles[db.status || ""],
+            ].join(" ")}
             key={`db_${index}`}
             onClick={() => router.push(getLink(db))}
           >
