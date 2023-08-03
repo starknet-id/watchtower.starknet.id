@@ -37,3 +37,40 @@
   animation: pulse 0.3s infinite ease-in-out alternate;
   color: gray;
 }
+
+.savesContainer {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.savesContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.savesContainer::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+.savesContainer::-webkit-scrollbar-thumb {
+  background: var(--foreground);
+  border-radius: var(--menu-border-radius);
+}
+
+.save {
+  margin: 5px 0;
+  display: flex;
+}
+
+.saveDate {
+  margin-right: auto;
+}
+
+.saveActions {
+  display: flex;
+  padding-right: 20px;
+}
+
+.saveActions svg {
+  cursor: pointer;
+  margin-left: 5px;
+}

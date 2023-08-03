@@ -83,8 +83,16 @@ hr {
   color: rgb(202, 202, 202);
 }
 
-.button.glass:hover {
+.button:hover {
   color: white;
+}
+
+.button.glass.filled {
+  width: 100%;
+  color: var(--background);
+  background-color: var(--foreground);
+  padding: 10px;
+  border-radius: var(--menu-border-radius);
 }
 
 .button.glass.danger {
@@ -92,13 +100,8 @@ hr {
   font-weight: bold;
 }
 
-.button.glass:hover::after {
-  left: 120%;
-  width: 1px;
-}
-
-.button.glass:hover:before {
-  opacity: 1;
+.button.glass.danger:hover {
+  color: red;
 }
 
 .color-light-2 {

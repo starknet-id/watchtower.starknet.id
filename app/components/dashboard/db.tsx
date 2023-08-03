@@ -9,6 +9,9 @@ import DeleteDbButton from "./db/deleteDbButton";
 import loadDbs from "./db/loadDbs";
 import ButtonContainer from "../UI/buttonContainer";
 import Popup from "../UI/popup";
+import SaveNow from "./db/saveNow";
+import RelativeDate from "../UI/relativeDate";
+import Saves from "./db/saves";
 
 const Database = ({
   databases,
@@ -21,9 +24,13 @@ const Database = ({
 }) => {
   const cookies = useCookies();
   const params = useSearchParams();
+
+  const [reconnectLoading, setReconnectLoading] = useState(false);
+  const [saves, setSaves] = useState<Array<DbSave>>([]);
+  const [saveMenu, setSaveMenu] = useState<true | null>(null);
+
   const dbId = params.get("db_id");
   const db = databases.find((d) => d._id === dbId);
-  const [reconnectLoading, setReconnectLoading] = useState(false);
 
   useEffect(() => {
     if (db) {
@@ -36,11 +43,23 @@ const Database = ({
     }
   }, [db]);
 
+  useEffect(() => {
+    if (db) {
+      request(`/get_db_saves`, {
+        token: cookies[0].token,
+        db_id: db._id,
+      }).then((res) => {
+        if (res.saves) {
+          setSaves(res.saves);
+        }
+      });
+    }
+  }, [db]);
+
   return (
     <div>
       <div className="flex items-center">
         <h1 className={dashboardStyles.title}>Database: {db?.name}</h1>
-
         <p
           className={[styles.status, styles[db?.status || "connecting"]].join(
             " "
@@ -84,50 +103,72 @@ const Database = ({
           </button>
         </ButtonContainer>
       </div>
-      <div className="flex items-center my-2">
-        <label className="mr-3">Connection string: </label>
-        <TextInput
-          value={db?.connection_string || ""}
-          placeholder="Connection string"
-          onChange={(e) => {
-            if (db) {
-              setDatabases(
-                databases.map((t) => {
-                  if (t._id === db._id) {
-                    return {
-                      ...t,
-                      connection_string: e.target.value,
-                    };
-                  }
-                  return t;
-                })
-              );
-            }
-          }}
-        ></TextInput>
-      </div>
-      <div className="flex items-center my-2">
-        <label className="mr-3">Rename: </label>
-        <TextInput
-          placeholder="Name"
-          value={db?.name || ""}
-          onChange={(e) => {
-            if (db) {
-              setDatabases(
-                databases.map((t) => {
-                  if (t._id === db._id) {
-                    return {
-                      ...t,
-                      name: e.target.value,
-                    };
-                  }
-                  return t;
-                })
-              );
-            }
-          }}
-        />
-      </div>
+      <section className="my-4">
+        <div className="flex items-center w-full">
+          <button
+            className="button glass filled mx-auto"
+            onClick={() => setSaveMenu(true)}
+          >
+            Laste save{" "}
+            {db?.last_save ? <RelativeDate date={db?.last_save} /> : "never"}
+          </button>
+          {db && (
+            <SaveNow
+              db={db}
+              setDatabases={setDatabases}
+              setMenu={setMenu}
+              databases={databases}
+            />
+          )}
+        </div>
+      </section>
+      <section className="mb-4">
+        <h2>Settings</h2>
+        <div className="flex items-center">
+          <label className="mr-3">Connection string: </label>
+          <TextInput
+            value={db?.connection_string || ""}
+            placeholder="Connection string"
+            onChange={(e) => {
+              if (db) {
+                setDatabases(
+                  databases.map((t) => {
+                    if (t._id === db._id) {
+                      return {
+                        ...t,
+                        connection_string: e.target.value,
+                      };
+                    }
+                    return t;
+                  })
+                );
+              }
+            }}
+          ></TextInput>
+        </div>
+        <div className="flex items-center my-2">
+          <label className="mr-3">Rename: </label>
+          <TextInput
+            placeholder="Name"
+            value={db?.name || ""}
+            onChange={(e) => {
+              if (db) {
+                setDatabases(
+                  databases.map((t) => {
+                    if (t._id === db._id) {
+                      return {
+                        ...t,
+                        name: e.target.value,
+                      };
+                    }
+                    return t;
+                  })
+                );
+              }
+            }}
+          />
+        </div>
+      </section>
       <section className="mb-4">
         <h2>Collections</h2>
         {!db?.collections || db?.collections?.length === 0 ? (
@@ -146,6 +187,14 @@ const Database = ({
           databases={databases}
           setDatabases={setDatabases}
           setMenu={setMenu}
+        />
+      )}
+      {saveMenu && db && (
+        <Saves
+          db={db}
+          saves={saves}
+          setMenu={setSaveMenu as SetMenu}
+          setSaves={setSaves}
         />
       )}
     </div>
