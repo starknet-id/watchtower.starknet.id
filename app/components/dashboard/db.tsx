@@ -109,7 +109,7 @@ const Database = ({
             className="button glass filled mx-auto"
             onClick={() => setSaveMenu(true)}
           >
-            Laste save{" "}
+            Last save{" "}
             {db?.last_save ? <RelativeDate date={db?.last_save} /> : "never"}
           </button>
           {db && (
