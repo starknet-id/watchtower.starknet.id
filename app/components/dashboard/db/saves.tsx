@@ -64,6 +64,12 @@ const Saves = ({
                 strokeWidth={1.5}
                 stroke="currentColor"
                 className="w-6 h-6"
+                onClick={() =>
+                  window.open(
+                    `${process.env.NEXT_PUBLIC_API_URL}/download_save?save_id=${save._id}&token=${cookies[0].token}`,
+                    "_blank"
+                  )
+                }
               >
                 <path
                   strokeLinecap="round"
