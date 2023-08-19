@@ -1,9 +1,10 @@
-import styles from "@/app/styles/components/dashboard/home.module.css";
+import styles from "@/app/styles/components/dashboard/db.module.css";
 import { useRouter } from "next/navigation";
 import Icon from "../icons/icon";
 import Plus from "../icons/paths/plus";
 import AddDatabaseMenu from "./db/addDbMenu";
 import dashboardStyles from "@/app/styles/dashboard.module.css";
+import RelativeDate from "../UI/relativeDate";
 
 const Databases = ({
   databases,
@@ -47,11 +48,19 @@ const Databases = ({
       <div className={dashboardStyles.itemsContainer}>
         {databases.map((db, index) => (
           <div
-            className={dashboardStyles.item}
+            className={[
+              dashboardStyles.item,
+              styles.dbElement,
+              styles[db.status || ""],
+            ].join(" ")}
             key={`db_${index}`}
             onClick={() => router.push(getLink(db))}
           >
             <p>{db.name}</p>
+            <p className="inactive">
+              Last save{" "}
+              {db.last_save ? <RelativeDate date={db.last_save} /> : "never"}
+            </p>
           </div>
         ))}
       </div>

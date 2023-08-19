@@ -16,6 +16,7 @@ import Type from "../components/dashboard/type";
 import Logs from "../components/dashboard/logs";
 import Databases from "../components/dashboard/dbs";
 import Database from "../components/dashboard/db";
+import loadDbs from "../components/dashboard/db/loadDbs";
 
 const Dashboard = () => {
   const cookies = useCookies();
@@ -51,13 +52,22 @@ const Dashboard = () => {
         setTypes(res.types);
       }
     });
-    request("/get_dbs", { token: token }).then((res) => {
-      if (res.status === "success") {
-        console.log(res);
-        setDatabases(res.databases);
-      }
-    });
+    loadDbs(token, setDatabases);
   }, [token]);
+
+  useEffect(() => {
+    // Check if any db is connecting
+    const connecting = databases.find((db) => db.status === "connecting");
+    let timeout: NodeJS.Timeout;
+    if (connecting) {
+      timeout = setTimeout(() => {
+        loadDbs(token, setDatabases);
+      }, 2000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [databases]);
 
   return (
     <>
@@ -90,7 +100,6 @@ const Dashboard = () => {
           <Database
             databases={databases}
             setMenu={setMenu}
-            permissions={permissions}
             setDatabases={setDatabases}
           />
         ) : null}

@@ -1,0 +1,76 @@
+.status {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--foreground);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 5px 20px;
+  transition: all 0.3s ease-in-out;
+  color: var(--background);
+  font-weight: bolder;
+}
+
+.status.connecting {
+  animation: pulse 0.3s infinite ease-in-out alternate;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.status.disconnected {
+  background-color: var(--danger);
+}
+
+.dbElement.disconnected {
+  border: 1px solid var(--danger);
+}
+
+.dbElement.connecting {
+  animation: pulse 0.3s infinite ease-in-out alternate;
+  color: gray;
+}
+
+.savesContainer {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.savesContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.savesContainer::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+.savesContainer::-webkit-scrollbar-thumb {
+  background: var(--foreground);
+  border-radius: var(--menu-border-radius);
+}
+
+.save {
+  margin: 5px 0;
+  display: flex;
+}
+
+.saveDate {
+  margin-right: auto;
+}
+
+.saveActions {
+  display: flex;
+  padding-right: 20px;
+}
+
+.saveActions svg {
+  cursor: pointer;
+  margin-left: 5px;
+}

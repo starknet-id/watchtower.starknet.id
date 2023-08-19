@@ -16,6 +16,7 @@
   --danger: rgb(255, 53, 53);
   --success: #0070f3;
   --inactive: #777;
+  --inactive-soft: #d0d0d0;
 }
 
 body {
@@ -41,6 +42,10 @@ hr {
   border: none;
   height: 1px;
   background-color: var(--inactive);
+}
+
+.inactive {
+  color: var(--inactive-soft);
 }
 
 .hr-soft {
@@ -78,8 +83,16 @@ hr {
   color: rgb(202, 202, 202);
 }
 
-.button.glass:hover {
+.button:hover {
   color: white;
+}
+
+.button.glass.filled {
+  width: 100%;
+  color: var(--background);
+  background-color: var(--foreground);
+  padding: 10px;
+  border-radius: var(--menu-border-radius);
 }
 
 .button.glass.danger {
@@ -87,13 +100,8 @@ hr {
   font-weight: bold;
 }
 
-.button.glass:hover::after {
-  left: 120%;
-  width: 1px;
-}
-
-.button.glass:hover:before {
-  opacity: 1;
+.button.glass.danger:hover {
+  color: red;
 }
 
 .color-light-2 {
