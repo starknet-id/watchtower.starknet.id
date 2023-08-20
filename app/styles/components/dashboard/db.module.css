@@ -74,3 +74,10 @@
   cursor: pointer;
   margin-left: 5px;
 }
+
+.errorMessage {
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: var(--menu-border-radius);
+  padding: 25px;
+}

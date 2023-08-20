@@ -103,6 +103,11 @@ const Database = ({
           </button>
         </ButtonContainer>
       </div>
+      {db?.message && db.status === "disconnected" ? (
+        <section className="my-4">
+          <p className={styles.errorMessage}>{db?.message}</p>
+        </section>
+      ) : null}
       <section className="my-4">
         <div className="flex items-center w-full">
           <button

@@ -5,6 +5,7 @@ type Database = {
   status?: "connected" | "disconnected" | "connecting";
   collections?: Array<any>;
   last_save?: string;
+  message?: string;
 };
 
 type DbSave = {
