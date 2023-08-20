@@ -19,8 +19,8 @@
 
 .line .momentContainer {
   display: flex;
-  min-width: none;
-  width: 180px;
+  width: fit-content;
+  margin-right: 1rem;
 }
 
 .line .date {
