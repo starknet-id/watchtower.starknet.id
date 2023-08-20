@@ -36,26 +36,30 @@ const load = (
   };
   loadWholeTargetTypesTree();
 
-  request("/get_logs", {
-    token: token,
-    target_apps: targetServiceIds.length
-      ? targetServiceIds
-      : services.map((service) => service._id),
-    target_types:
-      wholeTargetTypesTree.length > 0
-        ? wholeTargetTypesTree.map((t) => t.name)
-        : undefined,
-    page_id: pageId,
-    page_size: pageSize,
-    page_amount: pageAmount,
-  }).then((res) => {
-    if (res.status === "success") {
-      const services = res.logs;
-      setLogs(services);
-      setNextElements(res.next_elements);
-    }
-    if (!loaded) setLoaded(true);
-  });
+  const l = (pageSize: number, pageAmount: number) =>
+    request("/get_logs", {
+      token: token,
+      target_apps: targetServiceIds.length
+        ? targetServiceIds
+        : services.map((service) => service._id),
+      target_types:
+        wholeTargetTypesTree.length > 0
+          ? wholeTargetTypesTree.map((t) => t.name)
+          : undefined,
+      page_id: pageId,
+      page_size: pageSize,
+      page_amount: pageAmount,
+    }).then((res) => {
+      if (res.status === "success") {
+        const services = res.logs;
+        setLogs(services);
+        setNextElements(res.next_elements);
+      }
+      if (!loaded) setLoaded(true);
+    });
+
+  if (loaded) l(pageSize, pageAmount);
+  else l(30, 1);
 };
 
 export default load;
