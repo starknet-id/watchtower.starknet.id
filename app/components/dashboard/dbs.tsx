@@ -56,7 +56,7 @@ const Databases = ({
             key={`db_${index}`}
             onClick={() => router.push(getLink(db))}
           >
-            <p>{db.name}</p>
+            <p>{db.custom_name}</p>
             <p className="inactive">
               Last save{" "}
               {db.last_save ? <RelativeDate date={db.last_save} /> : "never"}

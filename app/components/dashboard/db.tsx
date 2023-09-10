@@ -39,6 +39,7 @@ const Database = ({
         db_id: db._id,
         name: db.name,
         connection_string: db.connection_string,
+        custom_name: db.custom_name,
       });
     }
   }, [db]);
@@ -59,7 +60,7 @@ const Database = ({
   return (
     <div>
       <div className="flex items-center">
-        <h1 className={dashboardStyles.title}>Database: {db?.name}</h1>
+        <h1 className={dashboardStyles.title}>Database: {db?.custom_name}</h1>
         <p
           className={[styles.status, styles[db?.status || "connecting"]].join(
             " "
@@ -135,7 +136,7 @@ const Database = ({
             value={db?.connection_string || ""}
             placeholder="Connection string"
             onChange={(e) => {
-              if (db) {
+              if (db)
                 setDatabases(
                   databases.map((t) => {
                     if (t._id === db._id) {
@@ -147,7 +148,6 @@ const Database = ({
                     return t;
                   })
                 );
-              }
             }}
           ></TextInput>
         </div>
@@ -157,7 +157,7 @@ const Database = ({
             placeholder="Name"
             value={db?.name || ""}
             onChange={(e) => {
-              if (db) {
+              if (db)
                 setDatabases(
                   databases.map((t) => {
                     if (t._id === db._id) {
@@ -169,7 +169,27 @@ const Database = ({
                     return t;
                   })
                 );
-              }
+            }}
+          />
+        </div>
+        <div className="flex items-center my-2">
+          <label className="mr-3">Custom name: </label>
+          <TextInput
+            placeholder="Name"
+            value={db?.custom_name || ""}
+            onChange={(e) => {
+              if (db)
+                setDatabases(
+                  databases.map((t) => {
+                    if (t._id === db._id) {
+                      return {
+                        ...t,
+                        custom_name: e.target.value,
+                      };
+                    }
+                    return t;
+                  })
+                );
             }}
           />
         </div>
