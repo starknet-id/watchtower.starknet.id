@@ -6,6 +6,7 @@ type Database = {
   collections?: Array<any>;
   last_save?: string;
   message?: string;
+  custom_name?: string;
 };
 
 type DbSave = {
