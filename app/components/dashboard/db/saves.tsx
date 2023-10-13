@@ -25,6 +25,7 @@ const Saves = ({
           })
           .map((save, index) => (
             <div className={styles.save} key={`save_${index}`}>
+              {save.manual ? <p className={styles.tag}>Manual</p> : null}
               <div className={styles.saveDate}>
                 <RelativeDate date={save.timestamp} />
               </div>
