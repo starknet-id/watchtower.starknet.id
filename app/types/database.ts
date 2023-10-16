@@ -13,4 +13,5 @@ type DbSave = {
   _id: string;
   db_id: string;
   timestamp: string;
+  manual: boolean;
 };
