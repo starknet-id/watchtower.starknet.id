@@ -251,10 +251,23 @@ const Logs = ({
                   </button>
                   <div className={styles.momentContainer}>
                     <p className={styles.date}>
-                      {new Date(log.timestamp).toLocaleDateString()}
+                      {new Date(log.timestamp).toDateString()}
                     </p>
                     <p className={styles.time}>
-                      {new Date(log.timestamp).toLocaleTimeString()}
+                      {new Date(log.timestamp)
+                        .getHours()
+                        .toString()
+                        .padStart(2, "0")}
+                      {":"}
+                      {new Date(log.timestamp)
+                        .getMinutes()
+                        .toString()
+                        .padStart(2, "0")}
+                      {":"}
+                      {new Date(log.timestamp)
+                        .getSeconds()
+                        .toString()
+                        .padStart(2, "0")}
                     </p>
                   </div>
                   <span
