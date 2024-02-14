@@ -49,7 +49,6 @@
   background-color: var(--menu-background);
   border-radius: var(--menu-border-radius);
   border: 1px solid white;
-  transform: scale(1.04);
   padding: 0 5px;
 }
 
