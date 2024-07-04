@@ -48,8 +48,9 @@
 .line.selected {
   background-color: var(--menu-background);
   border-radius: var(--menu-border-radius);
-  border: 1px solid white;
+  border: 1px solid white !important;
   padding: 0 5px;
+  background-color: rgba(255, 255, 255, 0.096) !important;
 }
 
 .deleteLogButton {
