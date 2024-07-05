@@ -71,7 +71,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.container} id="dashboardContainer">
         {page === "services" ? (
           <Services
             setMenu={setMenu}
