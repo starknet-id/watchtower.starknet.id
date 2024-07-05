@@ -9,7 +9,9 @@ import LogContextMenu from "./logs/logContextMenu";
 import LogsFilters from "./logs/logsFilters";
 import load from "./logs/load";
 import Popup from "../UI/popup";
-import isElementInViewport from "./logs/isElementInViewport";
+import isElementInViewport, {
+  isElementPartiallyInViewport,
+} from "./logs/isElementInViewport";
 import Loading from "../UI/loading";
 
 const Logs = ({
@@ -34,6 +36,9 @@ const Logs = ({
   const [logId, setLogId] = useState<string>("");
   const [pageId, setPageId] = useState(0);
   const [nextElements, setNextElements] = useState<number>(0);
+  const [keyPressed, setKeyPressed] = useState(false);
+  const [movedToLog, setMovedToLog] = useState(false);
+
   const multipleServices = targetServices.length > 1 || !targetServiceIds[0];
   const pageAmount = 8;
   const pageSize = 100;
@@ -47,10 +52,86 @@ const Logs = ({
     );
   }, []);
 
-  const select = (id: string) => {
-    setLogId(id);
+  const updateLogIdUrl = (id: string) =>
     router.push(`${window.location.href.split("#")[0]}#log_${id}`);
+
+  const select = (id: string) => {
+    if (!movedToLog) setMovedToLog(true);
+    setLogId(id);
+    updateLogIdUrl(id);
   };
+
+  useEffect(() => {
+    const move = (movement: number) => {
+      if (!movedToLog) setMovedToLog(true);
+
+      setLogId((prev) => {
+        const index = logs.findIndex((log) => log._id === prev);
+        const newIndex = Math.min(
+          logs.length - 1,
+          Math.max(0, index + movement)
+        );
+        const newId = logs[newIndex]._id;
+        updateLogIdUrl(newId);
+        return newId;
+      });
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+      e.preventDefault();
+      if (keyPressed) return;
+      setKeyPressed(true);
+      const multiplier = e.shiftKey ? (e.ctrlKey ? 10 : 5) : 1;
+      if (e.key === "ArrowDown") move(1 * multiplier);
+      if (e.key === "ArrowUp") move(-1 * multiplier);
+    };
+    window.addEventListener("keydown", onKeyDown);
+
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") setKeyPressed(false);
+    };
+    window.addEventListener("keyup", onKeyUp);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+    };
+  }, [logs, keyPressed, movedToLog]);
+
+  useEffect(() => {
+    if (movedToLog) return;
+    if (!logId) return;
+    const interval = setInterval(() => {
+      const element = document.getElementById(`log_${logId}`);
+      // Get current scroll position
+      const dashboardContainer = document.getElementById("dashboardContainer");
+      if (!dashboardContainer) return;
+      const scrollPosition = dashboardContainer.scrollTop;
+      const elementPosition = element?.getBoundingClientRect().top;
+      const scrollDirection = elementPosition
+        ? elementPosition >= 100
+          ? 1
+          : -1
+        : 1;
+      if (
+        element &&
+        elementPosition &&
+        elementPosition > 100 &&
+        elementPosition < 600
+      ) {
+        // Check if the element is in the viewport
+        if (isElementPartiallyInViewport(element)) {
+          clearInterval(interval);
+          setMovedToLog(true);
+          return;
+        }
+      }
+      dashboardContainer.scrollTo(
+        0,
+        scrollPosition + 100 * scrollDirection * (element ? 1 : 5)
+      );
+    }, 10);
+    return () => clearInterval(interval);
+  }, [logId, logs, movedToLog]);
 
   useEffect(() => {
     const href = window.location.href;
