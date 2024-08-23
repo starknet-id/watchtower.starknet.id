@@ -8,16 +8,12 @@ const openContextMenu = (
 ) => {
   e.preventDefault();
   e.stopPropagation();
-  let x = e.clientX;
-  let y = e.clientY;
-  if (width) {
-    if (x - width / 2 < 0) x = width / 2;
-    if (x + width / 2 > window.innerWidth) x = window.innerWidth - width / 2;
-    if (y - 100 < 0) y = 100;
-    if (y + 100 > window.innerHeight) y = window.innerHeight - 100;
-  }
+  // Get screen dimensions
+  const screenWidth = window.innerWidth;
+  const centerX = screenWidth / 2 - (width || 0) / 2;
+  const y = e.clientY;
   setMenu(
-    <ContextMenu setMenu={setMenu} x={x} y={y} width={width}>
+    <ContextMenu setMenu={setMenu} x={centerX} y={y} width={width}>
       {children}
     </ContextMenu>
   );

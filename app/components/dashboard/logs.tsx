@@ -38,6 +38,22 @@ const Logs = ({
   const [nextElements, setNextElements] = useState<number>(0);
   const [keyPressed, setKeyPressed] = useState(false);
   const [movedToLog, setMovedToLog] = useState(false);
+  const [isAltOrCommandPressed, setIsAltOrCommandPressed] = useState(false);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Alt" || e.key === "Meta") setIsAltOrCommandPressed(true);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.key === "Alt" || e.key === "Meta") setIsAltOrCommandPressed(false);
+    };
+    window.addEventListener("keyup", onKeyUp);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+    };
+  }, [isAltOrCommandPressed]);
 
   const multipleServices = targetServices.length > 1 || !targetServiceIds[0];
   const pageAmount = 8;
@@ -56,7 +72,13 @@ const Logs = ({
     router.push(`${window.location.href.split("#")[0]}#log_${id}`);
 
   const select = (id: string) => {
+    if (!isAltOrCommandPressed) return;
     if (!movedToLog) setMovedToLog(true);
+    if (logId === id) {
+      router.push(window.location.href.split("#")[0]);
+      setLogId("");
+      return;
+    }
     setLogId(id);
     updateLogIdUrl(id);
   };
