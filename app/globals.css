@@ -117,3 +117,10 @@ hr {
 ::selection {
   background-color: var(--foreground-light);
 }
+
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-y: hidden;
+  }
+}

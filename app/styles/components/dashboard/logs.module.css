@@ -134,22 +134,22 @@
 }
 
 @media (max-width: 768px) {
-  .line .momentContainer {
-    display: none;
-  }
-
-  .line .date {
-    display: none;
-  }
-
-  .line .time {
-    display: none;
-  }
   .mainContainer {
     min-width: 90vw;
     max-width: 90vw;
   }
   .line {
     max-width: 100vw;
+    overflow-x: auto;
+    flex-direction: column;
+    padding-top: 1rem;
+  }
+  .logHrName {
+    left: 0;
+    transform: none;
+    top: 0;
+  }
+  .line:hover .deleteLogButton {
+    display: none;
   }
 }

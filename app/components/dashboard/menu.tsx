@@ -1,6 +1,7 @@
 import styles from "@/app/styles/components/dashboard/menu.module.css";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const DashboardMenu = ({
   permissions,
@@ -85,17 +86,17 @@ const DashboardMenu = ({
         !(pages as any)[key].administrator ||
         permissions.includes("administrator") ||
         true ? (
-          <p
+          <Link
             key={`page_${index}`}
             className={[
               styles.link,
               (page === key || (pages as any)[key]?.alias?.includes(page)) &&
                 styles.active,
             ].join(" ")}
-            onClick={() => router.push(`/dashboard?page=${key}`)}
+            href={`/dashboard?page=${key}`}
           >
             {key}
-          </p>
+          </Link>
         ) : null
       )}
       <p

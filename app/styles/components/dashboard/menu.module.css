@@ -47,6 +47,10 @@
     overflow-x: auto;
     background-color: black;
     justify-content: flex-start;
+    margin: 0;
+    left: 0;
+    right: 0;
+    padding: 0 0.5rem;
   }
 
   .link {
