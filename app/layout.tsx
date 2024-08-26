@@ -17,10 +17,29 @@ export default function RootLayout({
       <head>
         {" "}
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="theme-color" content="black"></meta>
+        <meta name="theme-color" content="#000000"></meta>
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="192x192"
+          href="/apple-touch-icon-192x192.png"
+        ></link>
+        <link
+          rel="apple-touch-icon"
+          sizes="512x512"
+          href="/apple-touch-icon-512x512.png"
+        ></link>
       </head>
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`${inter.className} bg-black`}
+        color="black"
+        style={{ backgroundColor: "black" }}
+      >
+        {children}
+      </body>
     </html>
   );
 }
