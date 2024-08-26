@@ -32,6 +32,7 @@ const DashboardMenu = ({
         />
       ),
       administrator: false,
+      alias: ["service"],
     },
     dbs: {
       icon: (
@@ -42,6 +43,7 @@ const DashboardMenu = ({
         />
       ),
       administrator: true,
+      alias: ["db"],
     },
     types: {
       icon: (
@@ -52,6 +54,7 @@ const DashboardMenu = ({
         />
       ),
       administrator: true,
+      alias: ["type"],
     },
     users: {
       icon: (
@@ -62,6 +65,7 @@ const DashboardMenu = ({
         />
       ),
       administrator: true,
+      alias: ["user"],
     },
     settings: {
       icon: (
@@ -79,10 +83,15 @@ const DashboardMenu = ({
     <div className={styles.container}>
       {Object.keys(pages).map((key, index) =>
         !(pages as any)[key].administrator ||
-        permissions.includes("administrator") ? (
+        permissions.includes("administrator") ||
+        true ? (
           <p
             key={`page_${index}`}
-            className={[styles.link, page === key && styles.active].join(" ")}
+            className={[
+              styles.link,
+              (page === key || (pages as any)[key]?.alias?.includes(page)) &&
+                styles.active,
+            ].join(" ")}
             onClick={() => router.push(`/dashboard?page=${key}`)}
           >
             {key}

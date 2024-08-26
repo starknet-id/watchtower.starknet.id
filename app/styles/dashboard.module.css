@@ -66,3 +66,19 @@
 .item:hover:before {
   opacity: 1;
 }
+
+.pageContent {
+  min-width: 40vw;
+  max-width: 90vw;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 3rem 0;
+    width: 100vw;
+  }
+  .pageContent {
+    width: 100%;
+    max-width: 100vw;
+  }
+}
