@@ -32,6 +32,7 @@ export default function RootLayout({
           sizes="512x512"
           href="/apple-touch-icon-512x512.png"
         ></link>
+        <link rel="manifest" href="/manifest.json"></link>
       </head>
       <body
         className={`${inter.className} bg-black`}
